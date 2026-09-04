@@ -1,0 +1,1845 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>General Knowledge Quiz - 2026</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Arial,"Noto Sans Sinhala",sans-serif;
+    background:
+        radial-gradient(circle at top left,#dbeafe,transparent 35%),
+        radial-gradient(circle at bottom right,#ede9fe,transparent 35%),
+        #f3f6fb;
+    color:#182230;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* =========================
+   BACKGROUND ANIMATION
+========================= */
+
+.bg-circle{
+    position:fixed;
+    border-radius:50%;
+    filter:blur(2px);
+    opacity:.35;
+    pointer-events:none;
+    z-index:-1;
+    animation:floatBg 8s ease-in-out infinite;
+}
+
+.bg1{
+    width:180px;
+    height:180px;
+    background:#60a5fa;
+    top:5%;
+    left:-70px;
+}
+
+.bg2{
+    width:220px;
+    height:220px;
+    background:#a78bfa;
+    bottom:5%;
+    right:-90px;
+    animation-delay:2s;
+}
+
+.bg3{
+    width:100px;
+    height:100px;
+    background:#34d399;
+    top:45%;
+    right:8%;
+    animation-delay:4s;
+}
+
+@keyframes floatBg{
+    0%,100%{
+        transform:translateY(0) rotate(0deg);
+    }
+    50%{
+        transform:translateY(-30px) rotate(15deg);
+    }
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:25px 15px;
+}
+
+.card{
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(15px);
+    border-radius:24px;
+    padding:30px;
+    box-shadow:
+        0 20px 60px rgba(15,23,42,.12),
+        0 5px 20px rgba(37,99,235,.08);
+    border:1px solid rgba(255,255,255,.8);
+    animation:cardIn .7s ease;
+}
+
+@keyframes cardIn{
+    from{
+        opacity:0;
+        transform:translateY(30px) scale(.97);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* =========================
+   START SCREEN
+========================= */
+
+.logo{
+    width:95px;
+    height:95px;
+    margin:0 auto 20px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:48px;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    box-shadow:0 15px 35px rgba(37,99,235,.35);
+    animation:
+        logoPulse 2s infinite,
+        logoFloat 3s ease-in-out infinite;
+}
+
+@keyframes logoPulse{
+    0%,100%{
+        box-shadow:0 15px 35px rgba(37,99,235,.35);
+    }
+    50%{
+        box-shadow:
+            0 15px 50px rgba(37,99,235,.55),
+            0 0 0 12px rgba(37,99,235,.08);
+    }
+}
+
+@keyframes logoFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+h1{
+    margin-top:0;
+    text-align:center;
+    font-size:32px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#657184;
+    font-size:17px;
+}
+
+.info-box{
+    margin:25px 0;
+    padding:18px;
+    border-radius:16px;
+    background:#f7f9fc;
+    border-left:5px solid #2563eb;
+    line-height:1.7;
+}
+
+.start-button{
+    display:block;
+    margin:25px auto 0;
+    min-width:240px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+button{
+    border:0;
+    border-radius:13px;
+    padding:13px 20px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+button:active{
+    transform:scale(.96);
+}
+
+.primary{
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:#fff;
+    box-shadow:0 8px 20px rgba(37,99,235,.25);
+}
+
+.primary:hover{
+    box-shadow:0 12px 28px rgba(37,99,235,.4);
+}
+
+.secondary{
+    background:#e9eef6;
+    color:#182230;
+}
+
+/* =========================
+   QUIZ HEADER
+========================= */
+
+.quiz-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+.question-number{
+    font-weight:bold;
+    color:#2563eb;
+    font-size:16px;
+}
+
+.timer{
+    font-weight:bold;
+    color:#dc2626;
+    background:#fff1f2;
+    padding:8px 13px;
+    border-radius:10px;
+    transition:.3s;
+}
+
+.timer.warning{
+    animation:timerWarning .7s infinite;
+}
+
+@keyframes timerWarning{
+    0%,100%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.08);
+    }
+}
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress{
+    height:12px;
+    background:#e8edf5;
+    border-radius:20px;
+    overflow:hidden;
+    margin:20px 0 28px;
+}
+
+.progress-bar{
+    height:100%;
+    width:0;
+    border-radius:20px;
+    background:linear-gradient(
+        90deg,
+        #2563eb,
+        #7c3aed,
+        #ec4899
+    );
+    transition:width .7s cubic-bezier(.22,1,.36,1);
+    position:relative;
+}
+
+.progress-bar::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100px;
+    width:100px;
+    height:100%;
+    background:rgba(255,255,255,.5);
+    transform:skewX(-20deg);
+    animation:progressShine 2s infinite;
+}
+
+@keyframes progressShine{
+    from{
+        left:-100px;
+    }
+    to{
+        left:110%;
+    }
+}
+
+/* =========================
+   QUESTION
+========================= */
+
+.question-box{
+    animation:questionIn .5s ease;
+}
+
+@keyframes questionIn{
+    from{
+        opacity:0;
+        transform:translateX(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+.question{
+    font-size:21px;
+    font-weight:bold;
+    line-height:1.6;
+    margin-bottom:22px;
+}
+
+/* =========================
+   OPTIONS
+========================= */
+
+.option{
+    display:flex;
+    align-items:center;
+    width:100%;
+    padding:16px;
+    margin:12px 0;
+    border:2px solid #e1e7ef;
+    border-radius:15px;
+    background:#fff;
+    text-align:left;
+    font-size:16px;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+}
+
+.option::before{
+    content:"";
+    position:absolute;
+    width:0;
+    height:100%;
+    left:0;
+    top:0;
+    background:rgba(37,99,235,.06);
+    transition:.4s;
+}
+
+.option:hover::before{
+    width:100%;
+}
+
+.option:hover{
+    border-color:#2563eb;
+    transform:translateX(5px);
+    box-shadow:0 7px 20px rgba(37,99,235,.1);
+}
+
+.option-letter{
+    width:38px;
+    height:38px;
+    min-width:38px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#eef2ff;
+    color:#2563eb;
+    font-weight:bold;
+    margin-right:13px;
+    transition:.3s;
+}
+
+.option-text{
+    position:relative;
+    z-index:2;
+    flex:1;
+}
+
+.option-icon{
+    font-size:25px;
+    margin-left:10px;
+}
+
+/* SELECTED */
+
+.option.selected{
+    border-color:#2563eb;
+    background:#eaf1ff;
+}
+
+/* CORRECT */
+
+.option.correct{
+    border-color:#16a34a;
+    background:#ecfdf5;
+    color:#166534;
+    animation:correctOption .5s ease;
+}
+
+.option.correct .option-letter{
+    background:#16a34a;
+    color:white;
+    animation:letterPop .5s ease;
+}
+
+@keyframes correctOption{
+    0%{
+        transform:scale(1);
+    }
+    40%{
+        transform:scale(1.03);
+    }
+    100%{
+        transform:scale(1);
+    }
+}
+
+@keyframes letterPop{
+    0%{
+        transform:scale(.5);
+    }
+    70%{
+        transform:scale(1.2);
+    }
+    100%{
+        transform:scale(1);
+    }
+}
+
+/* WRONG */
+
+.option.wrong{
+    border-color:#dc2626;
+    background:#fef2f2;
+    color:#991b1b;
+    animation:wrongShake .55s ease;
+}
+
+.option.wrong .option-letter{
+    background:#dc2626;
+    color:white;
+}
+
+@keyframes wrongShake{
+    0%,100%{
+        transform:translateX(0);
+    }
+    20%{
+        transform:translateX(-10px);
+    }
+    40%{
+        transform:translateX(10px);
+    }
+    60%{
+        transform:translateX(-7px);
+    }
+    80%{
+        transform:translateX(7px);
+    }
+}
+
+/* =========================
+   FEEDBACK
+========================= */
+
+.feedback{
+    margin-top:20px;
+    padding:20px;
+    border-radius:18px;
+    text-align:center;
+    animation:feedbackIn .5s cubic-bezier(.175,.885,.32,1.275);
+}
+
+@keyframes feedbackIn{
+    0%{
+        opacity:0;
+        transform:scale(.7) translateY(20px);
+    }
+    70%{
+        transform:scale(1.05);
+    }
+    100%{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
+
+.feedback.correct-feedback{
+    background:#ecfdf5;
+    border:2px solid #86efac;
+    color:#166534;
+}
+
+.feedback.wrong-feedback{
+    background:#fef2f2;
+    border:2px solid #fca5a5;
+    color:#991b1b;
+}
+
+.feedback-icon{
+    font-size:55px;
+    display:block;
+    margin-bottom:8px;
+}
+
+.correct-feedback .feedback-icon{
+    animation:tickAnimation .8s cubic-bezier(.175,.885,.32,1.275);
+}
+
+@keyframes tickAnimation{
+    0%{
+        transform:scale(0) rotate(-45deg);
+        opacity:0;
+    }
+    60%{
+        transform:scale(1.3) rotate(10deg);
+    }
+    100%{
+        transform:scale(1) rotate(0);
+        opacity:1;
+    }
+}
+
+.wrong-feedback .feedback-icon{
+    animation:wrongIcon .6s ease;
+}
+
+@keyframes wrongIcon{
+    0%{
+        transform:scale(0);
+    }
+    50%{
+        transform:scale(1.3) rotate(-10deg);
+    }
+    100%{
+        transform:scale(1) rotate(0);
+    }
+}
+
+.feedback-title{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.correct-answer{
+    margin-top:8px;
+    font-size:15px;
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+.actions{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:25px;
+}
+
+.next-button{
+    min-width:140px;
+}
+
+/* =========================
+   RESULT
+========================= */
+
+.result{
+    text-align:center;
+}
+
+.result-icon{
+    font-size:70px;
+    animation:
+        trophyBounce 1s infinite alternate,
+        trophyRotate 4s ease-in-out infinite;
+}
+
+@keyframes trophyBounce{
+    from{
+        transform:translateY(0);
+    }
+    to{
+        transform:translateY(-12px);
+    }
+}
+
+@keyframes trophyRotate{
+    0%,100%{
+        rotate:0deg;
+    }
+    50%{
+        rotate:5deg;
+    }
+}
+
+.score{
+    font-size:60px;
+    font-weight:bold;
+    background:linear-gradient(135deg,#2563eb,#7c3aed,#ec4899);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:scoreReveal 1s ease;
+}
+
+@keyframes scoreReveal{
+    0%{
+        opacity:0;
+        transform:scale(.3);
+    }
+    70%{
+        transform:scale(1.15);
+    }
+    100%{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.result-message{
+    font-size:20px;
+    font-weight:bold;
+    margin:10px 0 20px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin:25px 0;
+}
+
+.stat{
+    background:#f7f9fc;
+    padding:18px 10px;
+    border-radius:15px;
+}
+
+.stat-number{
+    font-size:28px;
+    font-weight:bold;
+    color:#2563eb;
+}
+
+.stat-label{
+    color:#657184;
+    font-size:13px;
+}
+
+/* =========================
+   REVIEW
+========================= */
+
+.review{
+    margin-top:25px;
+    text-align:left;
+}
+
+.review-title{
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.review-item{
+    padding:16px;
+    border-radius:15px;
+    background:#f7f9fc;
+    margin:10px 0;
+    line-height:1.6;
+    border-left:5px solid #94a3b8;
+    animation:reviewIn .4s ease both;
+}
+
+.review-item.correct-review{
+    border-left-color:#16a34a;
+}
+
+.review-item.wrong-review{
+    border-left-color:#dc2626;
+}
+
+@keyframes reviewIn{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================
+   CONFETTI
+========================= */
+
+.confetti{
+    position:fixed;
+    width:10px;
+    height:15px;
+    top:-20px;
+    z-index:9999;
+    pointer-events:none;
+    animation:confettiFall linear forwards;
+}
+
+@keyframes confettiFall{
+    0%{
+        transform:
+            translateY(0)
+            rotate(0deg);
+        opacity:1;
+    }
+    100%{
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+        opacity:0;
+    }
+}
+
+/* =========================
+   RIPPLE
+========================= */
+
+.ripple{
+    position:absolute;
+    border-radius:50%;
+    transform:scale(0);
+    animation:rippleAnimation .6s linear;
+    background:rgba(37,99,235,.2);
+    pointer-events:none;
+}
+
+@keyframes rippleAnimation{
+    to{
+        transform:scale(5);
+        opacity:0;
+    }
+}
+
+/* =========================
+   NOTE
+========================= */
+
+.note{
+    font-size:13px;
+    color:#657184;
+    line-height:1.6;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .container{
+        padding:12px;
+    }
+
+    .card{
+        padding:18px;
+        border-radius:20px;
+    }
+
+    h1{
+        font-size:25px;
+    }
+
+    .question{
+        font-size:18px;
+    }
+
+    .quiz-header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+    }
+
+    .timer{
+        align-self:flex-end;
+    }
+
+    .actions button{
+        flex:1;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .score{
+        font-size:48px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-circle bg1"></div>
+<div class="bg-circle bg2"></div>
+<div class="bg-circle bg3"></div>
+
+<div class="container">
+
+<!-- START SCREEN -->
+
+<div class="card" id="startScreen">
+
+    <div class="logo">📚</div>
+
+    <h1>General Knowledge Quiz</h1>
+
+    <p class="subtitle">
+        <b>2026</b>
+    </p>
+
+    <div class="info-box">
+
+        <b>📝 Quiz එකේ විස්තර</b>
+
+        <p>
+            මෙම quiz එකේ ප්‍රශ්න MCQ ආකාරයෙන් සකසා ඇත.
+        </p>
+
+        <p>
+            🎯 පිළිතුරක් තෝරාගත් විගසම එය
+            <b>Correct / Wrong</b> ලෙස පෙන්වනු ලැබේ.
+        </p>
+
+        <p>
+            🔒 පිළිතුර තෝරාගත් පසු එය නැවත වෙනස් කළ නොහැක.
+        </p>
+
+        <p>
+            ⏱️ සම්පූර්ණ කාලය (මිනිත්තු): <b>22:00</b>
+        </p>
+
+        <p>
+             Designed By: <b>Tharinda Kaveen Nishad</b>
+        </p>
+
+    </div>
+
+    <button
+        class="primary start-button"
+        onclick="startQuiz()"
+    >
+        🚀 Quiz එක පටන් ගන්න
+    </button>
+
+</div>
+
+
+<!-- QUIZ SCREEN -->
+
+<div class="card hidden" id="quizScreen">
+
+    <div class="quiz-header">
+
+        <div
+            class="question-number"
+            id="qNumber">
+        </div>
+
+        <div
+            class="timer"
+            id="timer">
+            ⏱️ Time: 22:00
+        </div>
+
+    </div>
+
+    <div class="progress">
+        <div
+            class="progress-bar"
+            id="progressBar">
+        </div>
+    </div>
+
+    <div class="question-box">
+
+        <div
+            class="question"
+            id="question">
+        </div>
+
+        <div id="options"></div>
+
+        <div
+            id="feedback"
+            class="hidden">
+        </div>
+
+    </div>
+
+    <div class="actions">
+
+        <button
+            class="secondary"
+            onclick="previousQuestion()"
+            id="prevBtn">
+            ← Previous
+        </button>
+
+        <button
+            class="primary next-button"
+            onclick="nextQuestion()"
+            id="nextBtn">
+            Next →
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- RESULT SCREEN -->
+
+<div
+    class="card hidden result"
+    id="resultScreen">
+
+    <div class="result-icon">
+        🏆
+    </div>
+
+    <h1>🎉 Quiz Complete!</h1>
+
+    <div
+        class="score"
+        id="score">
+    </div>
+
+    <div
+        class="result-message"
+        id="resultMessage">
+    </div>
+
+    <p id="resultText"></p>
+
+    <div class="stats">
+
+        <div class="stat">
+            <div
+                class="stat-number"
+                id="correctCount">
+                0
+            </div>
+            <div class="stat-label">
+                ✅ Correct
+            </div>
+        </div>
+
+        <div class="stat">
+            <div
+                class="stat-number"
+                id="wrongCount">
+                0
+            </div>
+            <div class="stat-label">
+                ❌ Wrong
+            </div>
+        </div>
+
+        <div class="stat">
+            <div
+                class="stat-number"
+                id="percentage">
+                0%
+            </div>
+            <div class="stat-label">
+                📊 Percentage
+            </div>
+        </div>
+
+    </div>
+
+    <div class="review">
+
+        <div class="review-title">
+            📋 Answer Review
+        </div>
+
+        <div id="review"></div>
+
+    </div>
+
+    <br>
+
+    <button
+        class="primary"
+        onclick="restartQuiz()">
+        🔄 Try Again
+    </button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* ============================================================
+   QUESTIONS
+============================================================ */
+
+const questions = [
+
+
+
+
+
+/* ============================================================
+   GK_EXAMS_August_Week2_Current affairs
+============================================================ */
+
+
+{ q:"2026 අගෝස්තු 09 දින සිට ක්‍රියාත්මක වන පරිදි බන්ධනාගාර දෙපාර්තමේන්තුවේ නව මාධ්‍ය ප්‍රකාශක ලෙස පත් කරන ලද්දේ කවුරුන්ද?", o:[ "බන්ධනාගාර කොමසාරිස් සෙනක පල්ලේතැන්න මහතා", "බන්ධනාගාර කොමසාරිස් ජනරාල් තුෂාර උපුල්දෙණිය මහතා", "බන්ධනාගාර අධිකාරී නිශාන්ත ජයසිංහ මහතා", "බන්ධනාගාර කොමසාරිස් චන්දන ඒකනායක මහතා" ], a:0 },
+
+{ q:"රාජ්‍ය අංශයේ ආයතන සඳහා පෞද්ගලික දත්ත ආරක්ෂණ චක්‍රලේඛයක් මෑතකදී නිකුත් කරන ලද්දේ කුමන අධිකාරියක් විසින්ද?", o:[ "ශ්‍රී ලංකා මානව හිමිකම් කොමිසම", "දත්ත ආරක්ෂණ අධිකාරිය", "ශ්‍රී ලංකා තොරතුරු තාක්ෂණ ආයතනය", "ශ්‍රී ලංකා පරිගණක හදිසි ප්‍රතිචාර සංසදය" ], a:1 },
+
+{ q:"පසුගිය වසර 17 තුළ ශ්‍රී ලාංකිකයන් බිම් බෝම්බ මිලියනයක් ඉවත් කිරීමේ ඓතිහාසික සන්ධිස්ථානය සනිටුහන් කරමින් මෙරටට පැමිණි 'බිම් බෝම්බ උපදේශක කණ්ඩායම්' තානාපතිවරිය කවුරුන්ද?", o:[ "ඇන්ජලීනා ජොලී", "එමා වොට්සන්", "රොසමන්ඩ් පයික්", "නටාලි පෝට්මන්" ], a:2 },
+
+{ q:"ශ්‍රී ලංකාවේ ප්‍රථම ශුන්‍ය කාබන් විමෝචන (Zero Emission) පරිසර සංචාරක ගමනාන්තය බවට පත් කිරීමට රජය සැලසුම් කර ඇති දූපත කුමක්ද?", o:[ "ඩෙල්ෆ්ට් දූපත", "පරවි දූපත", "මඩකලපුව දූපත", "කච්චතිව් දූපත" ], a:0 },
+
+{ q:"මධ්‍යම පළාතේ නව ආණ්ඩුකාරවරයා ලෙස ජනාධිපතිවරයා ඉදිරියේ මෑතකදී දිවුරුම් දුන්නේ කවුරුන්ද?", o:[ "වෛද්‍ය හර්ෂ සුරංග ප්‍රනාන්දු මහතා", "මහාචාර්ය චන්දන ජයසුමන මහතා", "වෛද්‍ය නලින්ද ජයතිස්ස මහතා", "ඉංජිනේරු රංජිත් සියඹලාපිටිය මහතා" ], a:0 },
+
+{ q:"ශ්‍රී ලංකාවේ ඩිජිටල් ආර්ථික පරිවර්තනය වේගවත් කිරීම සඳහා “Sri Lanka AI Week 2026” වැඩසටහන පැවැත්වීමට සැලසුම් කර ඇති කාල සීමාව කුමක්ද?", o:[ "2026 අගෝස්තු 01 සිට 07 දක්වා", "2026 සැප්තැම්බර් 28 සිට ඔක්තෝබර් 04 දක්වා", "2026 ඔක්තෝබර් 10 සිට 17 දක්වා", "2026 නොවැම්බර් 01 සිට 07 දක්වා" ], a:1 },
+
+{ q:"ශ්‍රී ලංකාවේ දකුණු මුහුදු තීරයෙන් ප්‍රථම වතාවට මෑතකදී හඳුනාගනු ලැබූ දුර්ලභ තල්මසුන් විශේෂය කුමක්ද?", o:[ "නිල් තල්මසා", "හම්ප්බැක් තල්මසා", "ඔමුරාගේ තල්මසා (Omura’s whale)", "ශුක්‍රාණු තල්මසා" ], a:2 },
+
+{ q:"ලෝක ප්‍රකට Great Taste Awards සම්මාන උළෙලේදී සම්මානයට පාත්‍ර වූ ශ්‍රී ලාංකීය සමාගම් ත්‍රිත්වය කුමනවාද?", o:[ "Dilmah, Mlesna සහ Ceylon Tea", "Gralgo From Ceylon, Planet’s Finest සහ Ceylbee International", "Akbar, George Steuart සහ Watawala", "Cargills, Keells සහ Elephant House" ], a:1 },
+
+{ q:"කොලොම්බියාවේ නව ජනාධිපතිවරයා ලෙස මෑතකදී දිවුරුම් දුන් දක්ෂිණාංශික නීතිඥවරයා කවුරුන්ද?", o:[ "අබෙල් ආර්ඩෝ ඩි ලා එස්පිරියෙල්ලා", "ගුස්ටාවෝ පෙට්‍රෝ", "ඉවන් ඩුකේ", "අල්වාරෝ උරිබේ" ], a:0 },
+
+{ q:"2026 අගෝස්තු 12 වන දින තුර්කියේ පැවති NATO සමුළුවෙන් පසු ඇමරිකානු ජනාධිපති ඩොනල්ඩ් ට්‍රම්ප් රහසිගතව ගුවන් යානා මාරු කිරීමට හේතුව කුමක්ද?", o:[ "යානයේ තාක්ෂණික දෝෂයක් හේතුවෙන්", "ඉරානයෙන් එල්ල විය හැකි බවට සැක කෙරෙන ඝාතන තර්ජනයක් හේතුවෙන්", "අයහපත් කාලගුණය හේතුවෙන්", "ඉන්ධන හිඟයක් හේතුවෙන්" ], a:1 },
+
+{ q:"මැදපෙරදිග කලාපයේ රඳවා සිටි 'යූ.එස්.එස්. ඒබ්‍රහම් ලින්කන්' නෞකාව වෙනුවට ඇමරිකාව විසින් අලුතින් යොදවන ලද ගුවන් යානා ප්‍රවාහන නෞකාව කුමක්ද?", o:[ "USS Gerald R. Ford", "USS Nimitz", "USS George Washington", "USS Theodore Roosevelt" ], a:2 },
+
+{ q:"එක්සත් රාජධානිය 'න්‍යෂ්ටික අවියක් අතට ගත් පළමු ඉස්ලාමීය ජනරජය' ලෙස ආන්දෝලනාත්මක ප්‍රකාශයක් සිදු කළ ලෝක නායකයා කවුද?", o:[ "ඉරාන ජනාධිපති", "ඊශ්‍රායල අගමැති බෙන්ජමින් නෙතන්යාහු", "ඇමරිකානු ජනාධිපති ඩොනල්ඩ් ට්‍රම්ප්", "රුසියානු ජනාධිපති ව්ලැදිමීර් පුටින්" ], a:1 },
+
+{ q:"හෝමුස් සමුද්‍ර සන්ධිය හරහා ගමන් කරමින් තිබියදී ප්‍රහාරයට ලක්වූ තෙල් නැව අයත් වූයේ කුමන රටටද?", o:[ "සෞදි අරාබියට", "කටාර් රාජ්‍යයට", "එක්සත් අරාබි එමීර් රාජ්‍යයට (UAE)", "ඕමානයට" ], a:2 },
+
+{ q:"1951 වසරෙන් පසු චීනයේ නැගෙනහිර වෙරළ තීරයට බලපෑ විශාලතම සුළි කුණාටුව කුමක්ද?", o:[ "ඩොල්ෆින් සුළි කුණාටුව", "හයියාන් සුළි කුණාටුව", "මැන්ග්කට් සුළි කුණාටුව", "යගී සුළි කුණාටුව" ], a:0 },
+
+{ q:"පසුගියදා ෆුකට් සිට දිල්ලි බලා පියාසර කරමින් තිබියදී ක්ෂණිකව පහළට ඇදී යාමේ බිහිසුණු අත්දැකීමකට මුහුණ දුන් ගුවන් යානය අයත් වන්නේ කුමන ගුවන් සේවයටද?", o:[ "IndiGo", "Air India", "SriLankan Airlines", "Thai Airways" ], a:1 },
+
+{ q:"2026 අගෝස්තු 12 වන දින රුසියානු ඩ්‍රෝන ප්‍රහාරයක් හේතුවෙන් යුක්රේනයේ කියෙව් අගනුවර අසල විනාශයට පත් වූ ප්‍රධාන ස්ථානය කුමක්ද?", o:[ "හමුදා පුහුණු මධ්‍යස්ථානයක්", "ආහාර ගබඩා සංකීර්ණයක්", "විදුලි බලාගාරයක්", "දුම්රිය ස්ථානයක්" ], a:1 },
+
+{ q:"රුසියාව විසින් යුක්රේන යුද්ධය සඳහා තවත් සෙබළුන් අනිවාර්යයෙන් බඳවා ගැනීම වැළැක්වීම සඳහා අනුගමනය කරන නවතම ක්‍රියාමාර්ගය කුමක්ද?", o:[ "විදේශීය හමුදා බලකායන් යෙදවීම", "මුදල් ගෙවා ස්වේච්ඡාවෙන් සේවය කරන කොන්ත්‍රාත් සොල්දාදුවන් බඳවා ගැනීම ඉහළ දැමීම", "අනිවාර්ය හමුදා සේවය සම්පූර්ණයෙන්ම අහෝසි කිරීම", "විශ්‍රාමික සෙබළුන් නැවත සේවයට කැඳවීම" ], a:1 },
+
+{ q:"මෑතකදී ආන්දෝලනයකට තුඩුදුන් යුනයිටඩ් හෙල්ත්කෙයාර් ප්‍රධාන විධායක නිලධාරියා ඝාතනය කිරීම සම්බන්ධයෙන් වරද පිළිගත්තේ කවුද?", o:[ "ලුයිගි මැන්ජියෝනි", "ජෝන් ස්මිත්", "මයිකල් ජොන්සන්", "රොබට් විලියම්ස්" ], a:0 },
+
+{ q:"ලෝක ක්‍රිකට් ඉතිහාසයේ 5000 වැනි එක්දින ජාත්‍යන්තර (ODI) තරගය 2026 අගෝස්තු 07 වන දින කුමන රටවල් දෙකක් අතර පැවැත්වුණිද?", o:[ "ඕස්ට්‍රේලියාව සහ එංගලන්තය", "ස්කොට්ලන්තය සහ කැනඩාව", "ඉන්දියාව සහ ශ්‍රී ලංකාව", "පාකිස්තානය සහ බංග්ලාදේශය" ], a:1 },
+
+{ q:"ලෝක ක්‍රිකට් ඉතිහාසයේ වැඩිම එක්දින තරග සංඛ්‍යාවකට මුහුණ දී ඇති කණ්ඩායම කුමක්ද?", o:[ "ඉන්දියාව", "ඕස්ට්‍රේලියාව", "එංගලන්තය", "ශ්‍රී ලංකාව" ], a:0 },
+
+{ q:"ඉන්දියාවේ නවදිල්ලි නුවර පැවැත්වෙන ලෝක බැඩ්මින්ටන් ශූරතාවලියට බාධා එල්ල කරමින් සිටින සතුන් කවුරුන්ද?", o:[ "වඳුරන් සහ පරවියන්", "වවුලන් සහ බළලුන්", "බල්ලන් සහ වඳුරන්", "කපුටන් සහ ගිරවුන්" ], a:0 },
+
+{ q:"ඇමරිකාවේ 250 වන නිදහස් දිනය සැමරීම වෙනුවෙන් ජනාධිපති ට්‍රම්ප් විසින් හඳුන්වා දුන් නව ක්‍රීඩා උළෙල කුමක්ද?", o:[ "Freedom Games", "American Games", "Patriot Games", "Liberty Games" ], a:2 }
+
+
+
+
+
+
+
+
+
+];
+
+
+/* ============================================================
+   VARIABLES
+============================================================ */
+
+let current = 0;
+
+let answers = Array(questions.length).fill(null);
+
+let locked = Array(questions.length).fill(false);
+
+let time = 1200;
+
+let timerInterval;
+
+
+/* ============================================================
+   START QUIZ
+============================================================ */
+
+function startQuiz(){
+
+    document
+        .getElementById("startScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("resultScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("quizScreen")
+        .classList.remove("hidden");
+
+    current = 0;
+
+    answers.fill(null);
+
+    locked.fill(false);
+
+    time = 1320;
+
+    clearInterval(timerInterval);
+
+    timerInterval = setInterval(tick,1000);
+
+    render();
+}
+
+
+/* ============================================================
+   TIMER
+============================================================ */
+
+function tick(){
+
+    time--;
+
+    let minutes = Math.floor(time / 60);
+
+    let seconds = time % 60;
+
+    document.getElementById("timer").textContent =
+        `⏱️ Time: ${minutes}:${String(seconds).padStart(2,"0")}`;
+
+    if(time <= 60){
+
+        document
+            .getElementById("timer")
+            .classList.add("warning");
+
+    }
+
+    if(time <= 0){
+
+        clearInterval(timerInterval);
+
+        finishQuiz();
+
+    }
+
+}
+
+
+/* ============================================================
+   RENDER QUESTION
+============================================================ */
+
+function render(){
+
+    const q = questions[current];
+
+    const qBox = document.querySelector(".question-box");
+
+    qBox.style.animation = "none";
+
+    void qBox.offsetWidth;
+
+    qBox.style.animation = "questionIn .5s ease";
+
+
+    document.getElementById("qNumber").textContent =
+        `Question ${current + 1} / ${questions.length}`;
+
+
+    document.getElementById("question").textContent = q.q;
+
+
+    const box = document.getElementById("options");
+
+    box.innerHTML = "";
+
+
+    q.o.forEach((opt,i)=>{
+
+        const b = document.createElement("button");
+
+        b.className = "option";
+
+        b.style.animation =
+            `reviewIn .4s ease ${i * .08}s both`;
+
+
+        const letter = document.createElement("div");
+
+        letter.className = "option-letter";
+
+        letter.textContent =
+            String.fromCharCode(65+i);
+
+
+        const text = document.createElement("div");
+
+        text.className = "option-text";
+
+        text.textContent = opt;
+
+
+        const icon = document.createElement("div");
+
+        icon.className = "option-icon";
+
+
+        if(locked[current]){
+
+            if(i === q.a){
+
+                b.classList.add("correct");
+
+                icon.textContent = "✓";
+
+            }
+
+            if(i === answers[current] && i !== q.a){
+
+                b.classList.add("wrong");
+
+                icon.textContent = "✕";
+
+            }
+
+        }
+
+
+        b.appendChild(letter);
+
+        b.appendChild(text);
+
+        b.appendChild(icon);
+
+
+        if(!locked[current]){
+
+            b.onclick = function(e){
+
+                createRipple(e,b);
+
+                selectAnswer(i);
+
+            };
+
+        }
+
+
+        box.appendChild(b);
+
+    });
+
+
+    renderFeedback();
+
+
+    const percentage =
+        ((current+1) / questions.length) * 100;
+
+    document.getElementById("progressBar").style.width =
+        percentage + "%";
+
+
+    const prevBtn =
+        document.getElementById("prevBtn");
+
+    prevBtn.disabled = current === 0;
+
+    prevBtn.style.opacity =
+        current === 0 ? ".5" : "1";
+
+
+    const nextBtn =
+        document.getElementById("nextBtn");
+
+
+    if(locked[current]){
+
+        nextBtn.disabled = false;
+
+        nextBtn.textContent =
+            current === questions.length-1
+            ? "🏁 Finish"
+            : "Next →";
+
+    }else{
+
+        nextBtn.disabled = true;
+
+        nextBtn.textContent =
+            "Select Answer";
+
+    }
+
+}
+
+
+/* ============================================================
+   SELECT ANSWER
+============================================================ */
+
+function selectAnswer(index){
+
+    if(locked[current]) return;
+
+
+    answers[current] = index;
+
+    locked[current] = true;
+
+
+    const correct =
+        index === questions[current].a;
+
+
+    if(correct){
+
+        createConfetti();
+
+        playSuccessAnimation();
+
+    }else{
+
+        playWrongAnimation();
+
+    }
+
+
+    render();
+
+}
+
+
+/* ============================================================
+   FEEDBACK
+============================================================ */
+
+function renderFeedback(){
+
+    const feedback =
+        document.getElementById("feedback");
+
+    if(!locked[current]){
+
+        feedback.className = "hidden";
+
+        feedback.innerHTML = "";
+
+        return;
+
+    }
+
+
+    const q = questions[current];
+
+    const correct =
+        answers[current] === q.a;
+
+
+    feedback.className =
+        "feedback " +
+        (correct
+            ? "correct-feedback"
+            : "wrong-feedback");
+
+
+    if(correct){
+
+        feedback.innerHTML = `
+            <span class="feedback-icon">✓</span>
+
+            <div class="feedback-title">
+                🎉 Correct Answer!
+            </div>
+
+            <div class="correct-answer">
+                Excellent! ඔබ නිවැරදි පිළිතුර තෝරාගෙන ඇත.
+            </div>
+        `;
+
+    }else{
+
+        feedback.innerHTML = `
+            <span class="feedback-icon">✕</span>
+
+            <div class="feedback-title">
+                ❌ Wrong Answer
+            </div>
+
+            <div class="correct-answer">
+                නිවැරදි පිළිතුර:
+                <b>${q.o[q.a]}</b>
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* ============================================================
+   NEXT
+============================================================ */
+
+function nextQuestion(){
+
+    if(!locked[current]){
+
+        return;
+
+    }
+
+
+    if(current < questions.length - 1){
+
+        current++;
+
+        render();
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+    }else{
+
+        finishQuiz();
+
+    }
+
+}
+
+
+/* ============================================================
+   PREVIOUS
+============================================================ */
+
+function previousQuestion(){
+
+    if(current > 0){
+
+        current--;
+
+        render();
+
+    }
+
+}
+
+
+/* ============================================================
+   SUCCESS ANIMATION
+============================================================ */
+
+function playSuccessAnimation(){
+
+    const card =
+        document.getElementById("quizScreen");
+
+    card.animate(
+        [
+            {
+                transform:"scale(1)"
+            },
+            {
+                transform:"scale(1.015)"
+            },
+            {
+                transform:"scale(1)"
+            }
+        ],
+        {
+            duration:500,
+            easing:"ease-out"
+        }
+    );
+
+}
+
+
+/* ============================================================
+   WRONG ANIMATION
+============================================================ */
+
+function playWrongAnimation(){
+
+    const card =
+        document.getElementById("quizScreen");
+
+    card.animate(
+        [
+            {
+                transform:"translateX(0)"
+            },
+            {
+                transform:"translateX(-8px)"
+            },
+            {
+                transform:"translateX(8px)"
+            },
+            {
+                transform:"translateX(-6px)"
+            },
+            {
+                transform:"translateX(6px)"
+            },
+            {
+                transform:"translateX(0)"
+            }
+        ],
+        {
+            duration:500
+        }
+    );
+
+}
+
+
+/* ============================================================
+   CONFETTI
+============================================================ */
+
+function createConfetti(){
+
+    const emojis = [
+        "🎉",
+        "✨",
+        "⭐",
+        "🎊",
+        "💙",
+        "💚",
+        "🏆"
+    ];
+
+
+    for(let i=0;i<35;i++){
+
+        const confetti =
+            document.createElement("div");
+
+        confetti.className = "confetti";
+
+        confetti.textContent =
+            emojis[Math.floor(
+                Math.random()*emojis.length
+            )];
+
+
+        confetti.style.left =
+            Math.random()*100 + "vw";
+
+
+        confetti.style.fontSize =
+            (12 + Math.random()*18) + "px";
+
+
+        confetti.style.animationDuration =
+            (1.5 + Math.random()*2) + "s";
+
+
+        confetti.style.animationDelay =
+            Math.random()*.3 + "s";
+
+
+        document.body.appendChild(confetti);
+
+
+        setTimeout(()=>{
+            confetti.remove();
+        },4000);
+
+    }
+
+}
+
+
+/* ============================================================
+   RIPPLE
+============================================================ */
+
+function createRipple(event,button){
+
+    const circle =
+        document.createElement("span");
+
+    circle.className = "ripple";
+
+
+    const rect =
+        button.getBoundingClientRect();
+
+
+    const size =
+        Math.max(rect.width,rect.height);
+
+
+    circle.style.width =
+        circle.style.height =
+        size + "px";
+
+
+    circle.style.left =
+        event.clientX - rect.left - size/2 + "px";
+
+
+    circle.style.top =
+        event.clientY - rect.top - size/2 + "px";
+
+
+    button.appendChild(circle);
+
+
+    setTimeout(()=>{
+        circle.remove();
+    },600);
+
+}
+
+
+/* ============================================================
+   FINISH QUIZ
+============================================================ */
+
+function finishQuiz(){
+
+    clearInterval(timerInterval);
+
+
+    let correct = 0;
+
+
+    questions.forEach((q,i)=>{
+
+        if(answers[i] === q.a){
+
+            correct++;
+
+        }
+
+    });
+
+
+    const wrong =
+        questions.length - correct;
+
+
+    const percentage =
+        Math.round(
+            correct / questions.length * 100
+        );
+
+
+    document
+        .getElementById("quizScreen")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("resultScreen")
+        .classList.remove("hidden");
+
+
+    document.getElementById("score").textContent =
+        `${correct} / ${questions.length}`;
+
+
+    document.getElementById("correctCount").textContent =
+        correct;
+
+
+    document.getElementById("wrongCount").textContent =
+        wrong;
+
+
+    document.getElementById("percentage").textContent =
+        percentage + "%";
+
+
+    let message;
+
+
+    if(percentage >= 90){
+
+        message = "🏆 Outstanding! ඔබ සුපිරි වැඩක් කරලා තියෙනවා!";
+
+    }
+    else if(percentage >= 75){
+
+        message = "🎉 Excellent! ඉතා හොඳ ප්‍රතිඵලයක්!";
+
+    }
+    else if(percentage >= 60){
+
+        message = "👏 Good Job! තවත් ටිකක් practice කරන්න!";
+
+    }
+    else if(percentage >= 40){
+
+        message = "💪 Keep Going! තව practice කළොත් පුළුවන්!";
+
+    }
+    else{
+
+        message = "📚 Don't Give Up! නැවත උත්සාහ කරන්න!";
+
+    }
+
+
+    document.getElementById("resultMessage").textContent =
+        message;
+
+
+    document.getElementById("resultText").textContent =
+        `ඔබගේ ලකුණු ප්‍රතිශතය: ${percentage}%`;
+
+
+    let review = "";
+
+
+    questions.forEach((q,i)=>{
+
+        const ok =
+            answers[i] === q.a;
+
+
+        review += `
+
+        <div class="
+            review-item
+            ${ok ? "correct-review" : "wrong-review"}
+        ">
+
+            <b>
+                ${i+1}.
+                ${ok ? "✅ Correct" : "❌ Wrong"}
+            </b>
+
+            <br>
+
+            ${q.q}
+
+            <br>
+
+            <small>
+
+                ඔබගේ පිළිතුර:
+                <b>
+                    ${
+                        answers[i] !== null
+                        ? q.o[answers[i]]
+                        : "No Answer"
+                    }
+                </b>
+
+                <br>
+
+                නිවැරදි පිළිතුර:
+                <b>
+                    ${q.o[q.a]}
+                </b>
+
+            </small>
+
+        </div>
+
+        `;
+
+    });
+
+
+    document.getElementById("review").innerHTML =
+        review;
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+
+    if(percentage >= 60){
+
+        createConfetti();
+
+        setTimeout(createConfetti,500);
+
+        setTimeout(createConfetti,1000);
+
+    }
+
+}
+
+
+/* ============================================================
+   RESTART
+============================================================ */
+
+function restartQuiz(){
+
+    document
+        .getElementById("resultScreen")
+        .classList.add("hidden");
+
+    startQuiz();
+
+}
+
+</script>
+
+</body>
+</html>

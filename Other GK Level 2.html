@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>General Knowledge Quiz - 2026</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Arial,"Noto Sans Sinhala",sans-serif;
+    background:
+        radial-gradient(circle at top left,#dbeafe,transparent 35%),
+        radial-gradient(circle at bottom right,#ede9fe,transparent 35%),
+        #f3f6fb;
+    color:#182230;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* =========================
+   BACKGROUND ANIMATION
+========================= */
+
+.bg-circle{
+    position:fixed;
+    border-radius:50%;
+    filter:blur(2px);
+    opacity:.35;
+    pointer-events:none;
+    z-index:-1;
+    animation:floatBg 8s ease-in-out infinite;
+}
+
+.bg1{
+    width:180px;
+    height:180px;
+    background:#60a5fa;
+    top:5%;
+    left:-70px;
+}
+
+.bg2{
+    width:220px;
+    height:220px;
+    background:#a78bfa;
+    bottom:5%;
+    right:-90px;
+    animation-delay:2s;
+}
+
+.bg3{
+    width:100px;
+    height:100px;
+    background:#34d399;
+    top:45%;
+    right:8%;
+    animation-delay:4s;
+}
+
+@keyframes floatBg{
+    0%,100%{
+        transform:translateY(0) rotate(0deg);
+    }
+    50%{
+        transform:translateY(-30px) rotate(15deg);
+    }
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:25px 15px;
+}
+
+.card{
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(15px);
+    border-radius:24px;
+    padding:30px;
+    box-shadow:
+        0 20px 60px rgba(15,23,42,.12),
+        0 5px 20px rgba(37,99,235,.08);
+    border:1px solid rgba(255,255,255,.8);
+    animation:cardIn .7s ease;
+}
+
+@keyframes cardIn{
+    from{
+        opacity:0;
+        transform:translateY(30px) scale(.97);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* =========================
+   START SCREEN
+========================= */
+
+.logo{
+    width:95px;
+    height:95px;
+    margin:0 auto 20px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:48px;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    box-shadow:0 15px 35px rgba(37,99,235,.35);
+    animation:
+        logoPulse 2s infinite,
+        logoFloat 3s ease-in-out infinite;
+}
+
+@keyframes logoPulse{
+    0%,100%{
+        box-shadow:0 15px 35px rgba(37,99,235,.35);
+    }
+    50%{
+        box-shadow:
+            0 15px 50px rgba(37,99,235,.55),
+            0 0 0 12px rgba(37,99,235,.08);
+    }
+}
+
+@keyframes logoFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+h1{
+    margin-top:0;
+    text-align:center;
+    font-size:32px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#657184;
+    font-size:17px;
+}
+
+.info-box{
+    margin:25px 0;
+    padding:18px;
+    border-radius:16px;
+    background:#f7f9fc;
+    border-left:5px solid #2563eb;
+    line-height:1.7;
+}
+
+.start-button{
+    display:block;
+    margin:25px auto 0;
+    min-width:240px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+button{
+    border:0;
+    border-radius:13px;
+    padding:13px 20px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+button:active{
+    transform:scale(.96);
+}
+
+.primary{
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:#fff;
+    box-shadow:0 8px 20px rgba(37,99,235,.25);
+}
+
+.primary:hover{
+    box-shadow:0 12px 28px rgba(37,99,235,.4);
+}
+
+.secondary{
+    background:#e9eef6;
+    color:#182230;
+}
+
+/* =========================
+   QUIZ HEADER
+========================= */
+
+.quiz-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+.question-number{
+    font-weight:bold;
+    color:#2563eb;
+    font-size:16px;
+}
+
+.timer{
+    font-weight:bold;
+    color:#dc2626;
+    background:#fff1f2;
+    padding:8px 13px;
+    border-radius:10px;
+    transition:.3s;
+}
+
+.timer.warning{
+    animation:timerWarning .7s infinite;
+}
+
+@keyframes timerWarning{
+    0%,100%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.08);
+    }
+}
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress{
+    height:12px;
+    background:#e8edf5;
+    border-radius:20px;
+    overflow:hidden;
+    margin:20px 0 28px;
+}
+
+.progress-bar{
+    height:100%;
+    width:0;
+    border-radius:20px;
+    background:linear-gradient(
+        90deg,
+        #2563eb,
+        #7c3aed,
+        #ec4899
+    );
+    transition:width .7s cubic-bezier(.22,1,.36,1);
+    position:relative;
+}
+
+.progress-bar::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100px;
+    width:100px;
+    height:100%;
+    background:rgba(255,255,255,.5);
+    transform:skewX(-20deg);
+    animation:progressShine 2s infinite;
+}
+
+@keyframes progressShine{
+    from{
+        left:-100px;
+    }
+    to{
+        left:110%;
+    }
+}
+
+/* =========================
+   QUESTION
+========================= */
+
+.question-box{
+    animation:questionIn .5s ease;
+}
+
+@keyframes questionIn{
+    from{
+        opacity:0;
+        transform:translateX(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+.question{
+    font-size:21px;
+    font-weight:bold;
+    line-height:1.6;
+    margin-bottom:22px;
+}
+
+/* =========================
+   OPTIONS
+========================= */
+
+.option{
+    display:flex;
+    align-items:center;
+    width:100%;
+    padding:16px;
+    margin:12px 0;
+    border:2px solid #e1e7ef;
+    border-radius:15px;
+    background:#fff;
+    text-align:left;
+    font-size:16px;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+}
+
+.option::before{
+    content:"";
+    position:absolute;
+    width:0;
+    height:100%;
+    left:0;
+    top:0;
+    background:rgba(37,99,235,.06);
+    transition:.4s;
+}
+
+.option:hover::before{
+    width:100%;
+}
+
+.option:hover{
+    border-color:#2563eb;
+    transform:translateX(5px);
+    box-shadow:0 7px 20px rgba(37,99,235,.1);
+}
+
+.option-letter{
+    width:38px;
+    height:38px;
+    min-width:38px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#eef2ff;
+    color:#2563eb;
+    font-weight:bold;
+    margin-right:13px;
+    transition:.3s;
+}
+
+.option-text{
+    position:relative;
+    z-index:2;
+    flex:1;
+}
+
+.option-icon{
+    font-size:25px;
+    margin-left:10px;
+}
+
+/* SELECTED */
+
+.option.selected{
+    border-color:#2563eb;
+    background:#eaf1ff;
+}
+
+/* CORRECT */
+
+.option.correct{
+    border-color:#16a34a;
+    background:#ecfdf5;
+    color:#166534;
+    animation:correctOption .5s ease;
+}
+
+.option.correct .option-letter{
+    background:#16a34a;
+    color:white;
+    animation:letterPop .5s ease;
+}
+
+@keyframes correctOption{
+    0%{
+        transform:scale(1);
+    }
+    40%{
+        transform:scale(1.03);
+    }
+    100%{
+        transform:scale(1);
+    }
+}
+
+@keyframes letterPop{
+    0%{
+        transform:scale(.5);
+    }
+    70%{
+        transform:scale(1.2);
+    }
+    100%{
+        transform:scale(1);
+    }
+}
+
+/* WRONG */
+
+.option.wrong{
+    border-color:#dc2626;
+    background:#fef2f2;
+    color:#991b1b;
+    animation:wrongShake .55s ease;
+}
+
+.option.wrong .option-letter{
+    background:#dc2626;
+    color:white;
+}
+
+@keyframes wrongShake{
+    0%,100%{
+        transform:translateX(0);
+    }
+    20%{
+        transform:translateX(-10px);
+    }
+    40%{
+        transform:translateX(10px);
+    }
+    60%{
+        transform:translateX(-7px);
+    }
+    80%{
+        transform:translateX(7px);
+    }
+}
+
+/* =========================
+   FEEDBACK
+========================= */
+
+.feedback{
+    margin-top:20px;
+    padding:20px;
+    border-radius:18px;
+    text-align:center;
+    animation:feedbackIn .5s cubic-bezier(.175,.885,.32,1.275);
+}
+
+@keyframes feedbackIn{
+    0%{
+        opacity:0;
+        transform:scale(.7) translateY(20px);
+    }
+    70%{
+        transform:scale(1.05);
+    }
+    100%{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
+
+.feedback.correct-feedback{
+    background:#ecfdf5;
+    border:2px solid #86efac;
+    color:#166534;
+}
+
+.feedback.wrong-feedback{
+    background:#fef2f2;
+    border:2px solid #fca5a5;
+    color:#991b1b;
+}
+
+.feedback-icon{
+    font-size:55px;
+    display:block;
+    margin-bottom:8px;
+}
+
+.correct-feedback .feedback-icon{
+    animation:tickAnimation .8s cubic-bezier(.175,.885,.32,1.275);
+}
+
+@keyframes tickAnimation{
+    0%{
+        transform:scale(0) rotate(-45deg);
+        opacity:0;
+    }
+    60%{
+        transform:scale(1.3) rotate(10deg);
+    }
+    100%{
+        transform:scale(1) rotate(0);
+        opacity:1;
+    }
+}
+
+.wrong-feedback .feedback-icon{
+    animation:wrongIcon .6s ease;
+}
+
+@keyframes wrongIcon{
+    0%{
+        transform:scale(0);
+    }
+    50%{
+        transform:scale(1.3) rotate(-10deg);
+    }
+    100%{
+        transform:scale(1) rotate(0);
+    }
+}
+
+.feedback-title{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.correct-answer{
+    margin-top:8px;
+    font-size:15px;
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+.actions{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:25px;
+}
+
+.next-button{
+    min-width:140px;
+}
+
+/* =========================
+   RESULT
+========================= */
+
+.result{
+    text-align:center;
+}
+
+.result-icon{
+    font-size:70px;
+    animation:
+        trophyBounce 1s infinite alternate,
+        trophyRotate 4s ease-in-out infinite;
+}
+
+@keyframes trophyBounce{
+    from{
+        transform:translateY(0);
+    }
+    to{
+        transform:translateY(-12px);
+    }
+}
+
+@keyframes trophyRotate{
+    0%,100%{
+        rotate:0deg;
+    }
+    50%{
+        rotate:5deg;
+    }
+}
+
+.score{
+    font-size:60px;
+    font-weight:bold;
+    background:linear-gradient(135deg,#2563eb,#7c3aed,#ec4899);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:scoreReveal 1s ease;
+}
+
+@keyframes scoreReveal{
+    0%{
+        opacity:0;
+        transform:scale(.3);
+    }
+    70%{
+        transform:scale(1.15);
+    }
+    100%{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.result-message{
+    font-size:20px;
+    font-weight:bold;
+    margin:10px 0 20px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin:25px 0;
+}
+
+.stat{
+    background:#f7f9fc;
+    padding:18px 10px;
+    border-radius:15px;
+}
+
+.stat-number{
+    font-size:28px;
+    font-weight:bold;
+    color:#2563eb;
+}
+
+.stat-label{
+    color:#657184;
+    font-size:13px;
+}
+
+/* =========================
+   REVIEW
+========================= */
+
+.review{
+    margin-top:25px;
+    text-align:left;
+}
+
+.review-title{
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.review-item{
+    padding:16px;
+    border-radius:15px;
+    background:#f7f9fc;
+    margin:10px 0;
+    line-height:1.6;
+    border-left:5px solid #94a3b8;
+    animation:reviewIn .4s ease both;
+}
+
+.review-item.correct-review{
+    border-left-color:#16a34a;
+}
+
+.review-item.wrong-review{
+    border-left-color:#dc2626;
+}
+
+@keyframes reviewIn{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================
+   CONFETTI
+========================= */
+
+.confetti{
+    position:fixed;
+    width:10px;
+    height:15px;
+    top:-20px;
+    z-index:9999;
+    pointer-events:none;
+    animation:confettiFall linear forwards;
+}
+
+@keyframes confettiFall{
+    0%{
+        transform:
+            translateY(0)
+            rotate(0deg);
+        opacity:1;
+    }
+    100%{
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+        opacity:0;
+    }
+}
+
+/* =========================
+   RIPPLE
+========================= */
+
+.ripple{
+    position:absolute;
+    border-radius:50%;
+    transform:scale(0);
+    animation:rippleAnimation .6s linear;
+    background:rgba(37,99,235,.2);
+    pointer-events:none;
+}
+
+@keyframes rippleAnimation{
+    to{
+        transform:scale(5);
+        opacity:0;
+    }
+}
+
+/* =========================
+   NOTE
+========================= */
+
+.note{
+    font-size:13px;
+    color:#657184;
+    line-height:1.6;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .container{
+        padding:12px;
+    }
+
+    .card{
+        padding:18px;
+        border-radius:20px;
+    }
+
+    h1{
+        font-size:25px;
+    }
+
+    .question{
+        font-size:18px;
+    }
+
+    .quiz-header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+    }
+
+    .timer{
+        align-self:flex-end;
+    }
+
+    .actions button{
+        flex:1;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .score{
+        font-size:48px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-circle bg1"></div>
+<div class="bg-circle bg2"></div>
+<div class="bg-circle bg3"></div>
+
+<div class="container">
+
+<!-- START SCREEN -->
+
+<div class="card" id="startScreen">
+
+    <div class="logo">📚</div>
+
+    <h1>General Knowledge Quiz</h1>
+
+    <p class="subtitle">
+        <b>2026</b>
+    </p>
+
+    <div class="info-box">
+
+        <b>📝 Quiz එකේ විස්තර</b>
+
+        <p>
+            මෙම quiz එකේ ප්‍රශ්න MCQ ආකාරයෙන් සකසා ඇත.
+        </p>
+
+        <p>
+            🎯 පිළිතුරක් තෝරාගත් විගසම එය
+            <b>Correct / Wrong</b> ලෙස පෙන්වනු ලැබේ.
+        </p>
+
+        <p>
+            🔒 පිළිතුර තෝරාගත් පසු එය නැවත වෙනස් කළ නොහැක.
+        </p>
+
+        <p>
+            ⏱️ සම්පූර්ණ කාලය (මිනිත්තු): <b>50:00</b>
+        </p>
+
+        <p>
+            Designed By: <b>Tharinda Kaveen Nishad</b>
+        </p>
+
+    </div>
+
+    <button
+        class="primary start-button"
+        onclick="startQuiz()"
+    >
+        🚀 Quiz එක පටන් ගන්න
+    </button>
+
+</div>
+
+
+<!-- QUIZ SCREEN -->
+
+<div class="card hidden" id="quizScreen">
+
+    <div class="quiz-header">
+
+        <div
+            class="question-number"
+            id="qNumber">
+        </div>
+
+        <div
+            class="timer"
+            id="timer">
+            ⏱️ Time: 50:00
+        </div>
+
+    </div>
+
+    <div class="progress">
+        <div
+            class="progress-bar"
+            id="progressBar">
+        </div>
+    </div>
+
+    <div class="question-box">
+
+        <div
+            class="question"
+            id="question">
+        </div>
+
+        <div id="options"></div>
+
+        <div
+            id="feedback"
+            class="hidden">
+        </div>
+
+    </div>
+
+    <div class="actions">
+
+        <button
+            class="secondary"
+            onclick="previousQuestion()"
+            id="prevBtn">
+            ← Previous
+        </button>
+
+        <button
+            class="primary next-button"
+            onclick="nextQuestion()"
+            id="nextBtn">
+            Next →
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- RESULT SCREEN -->
+
+<div
+    class="card hidden result"
+    id="resultScreen">
+
+    <div class="result-icon">
+        🏆
+    </div>
+
+    <h1>🎉 Quiz Complete!</h1>
+
+    <div
+        class="score"
+        id="score">
+    </div>
+
+    <div
+        class="result-message"
+        id="resultMessage">
+    </div>
+
+    <p id="resultText"></p>
+
+    <div class="stats">
+
+        <div class="stat">
+            <div
+                class="stat-number"
+                id="correctCount">
+                0
+            </div>
+            <div class="stat-label">
+                ✅ Correct
+            </div>
+        </div>
+
+        <div class="stat">
+            <div
+                class="stat-number"
+                id="wrongCount">
+                0
+            </div>
+            <div class="stat-label">
+                ❌ Wrong
+            </div>
+        </div>
+
+        <div class="stat">
+            <div
+                class="stat-number"
+                id="percentage">
+                0%
+            </div>
+            <div class="stat-label">
+                📊 Percentage
+            </div>
+        </div>
+
+    </div>
+
+    <div class="review">
+
+        <div class="review-title">
+            📋 Answer Review
+        </div>
+
+        <div id="review"></div>
+
+    </div>
+
+    <br>
+
+    <button
+        class="primary"
+        onclick="restartQuiz()">
+        🔄 Try Again
+    </button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* ============================================================
+   QUESTIONS
+============================================================ */
+
+const questions = [
+
+
+
+
+
+{ q:"ඉන්දියාවේ 80 නිදහස් සැමරුම පැවති ස්ථානය කුමක්ද?", o:[ "මුම්බායි ගේට්වේ ඔෆ් ඉන්ඩියා", "නවදිල්ලියේ රතු බලකොටුව", "කොල්කටා වික්ටෝරියා ස්මාරකය", "නවදිල්ලි රාෂ්ට්‍රපති භවන්" ], a:1 },
+
+{ q:"ලෝකයේ මළ දරු උපත් වැඩිම රට කුමක්ද?", o:[ "ඉන්දියාව", "නයිජීරියාව", "පකිස්ථානය", "බංග්ලාදේශය" ], a:2 },
+
+{ q:"අතීත ජනයා විසූ පැරැණි නගරයක නටබුන් හා සාධක මෑතකදී (2026) කවර ප්‍රදේශයකින් සොයා ගනු ලැබුවේද?", o:[ "සීගිරිය", "යාපහුව", "අනුරාධපුරය", "පොළොන්නරුව" ], a:1 },
+
+{ q:"'සඳ තරු මල්', 'නුඹට හිතැයි නුඹ හිත නැති', 'ලාදළු බෝපත්', 'මේ ඉර හඳ යට හමුවී', 'සරසවි කඳුළු පාය' වැනි ගීත රචිත, ලාංකිකයේ සුගම ගීත සාහිත්‍යයට සහ බෞද්ධ ගීත කලාවට අනුපමේය මෙහෙවරක් ඉටුකර සම්මානනීය ගීත රචකයකු මෙන්ම ග්‍රන්ථ කතුවරයෙකු වූ අපවත් වී වදාළ යතිවරයාණන් වහන්සේ කවුරුන්ද?", o:[ "පූජ්‍ය පල්ලේගම හේමරතන හිමිපාණන් වහන්සේ", "පූජ්‍ය රඹුකන සිද්ධාර්ථ හිමිපාණන් වහන්සේ", "පූජ්‍ය මාදුළුවාවේ සෝභිත හිමිපාණන් වහන්සේ", "පූජ්‍ය මඩිහේ පඤ්ඤාසීහ හිමිපාණන් වහන්සේ" ], a:1 },
+
+{ q:"පහළොස්වන සියවසේ පුනරුද යුගයේ චිත්‍ර ශිල්පියකු වන ඇන්ටොනෙලෝ ඩා මෙසිනාට අයත් චිත්‍ර කීයක් මෑතක සොරාගෙන ඇතිද?", o:[ "චිත්‍ර 2ක්", "චිත්‍ර 3ක්", "චිත්‍ර 4ක්", "චිත්‍ර 5ක්" ], a:2 },
+
+{ q:"'Heroes' සහ 'Nashville' ජනප්‍රිය රූපවාහිනී මාලා මෙන්ම 'Bring It on: All or Nothing' සහ 'Raising Helen' වැනි චිත්‍රපට හරහා ප්‍රසිද්ධියට පත් මෑතකදී වයස අවුරුදු 36දී අභාවප්‍රාප්ත වූ ප්‍රකට හොලිවුඩ් නිළිය කවුරුන්ද?", o:[ "හේඩන් පැණිටියර්", "ඇන් හෙචේ", "බ්‍රිටනි මර්ෆි", "මිෂෙල් ට්‍රැච්ටෙන්බර්ග්" ], a:0 },
+
+{ q:"ජාත්‍යන්තර මූල්‍ය අරමුදල (IMF) නිර්මාණය කිරීම සඳහා මුල් වූ සමුළුව කුමක්ද?", o:[ "ජිනීවා සමුළුව", "බ්‍රෙටන් වුඩ්ස් සමුළුව", "පැරිස් සමුළුව", "වර්සායි සමුළුව" ], a:1 },
+
+{ q:"ජාත්‍යන්තර මූල්‍ය අරමුදල (IMF) පිහිටුවනු ලැබූයේ නිල වශයෙන් ක්‍රියාත්මක වීම ආරම්භ වූයේ කවදාද?", o:[ "1944 පිහිටුවා, 1945 ක්‍රියාත්මක විය", "1945 පිහිටුවා, 1946 ක්‍රියාත්මක විය", "1946 පිහිටුවා, 1947 ක්‍රියාත්මක විය", "1943 පිහිටුවා, 1944 ක්‍රියාත්මක විය" ], a:0 },
+
+{ q:"ජාත්‍යන්තර මූල්‍ය අරමුදලේ (IMF) ස්ථිර මූලස්ථානය පිහිටා ඇත්තේ කුමන නගරයේද?", o:[ "නිව්යෝර්ක් නගරයේ", "ලන්ඩන් නගරයේ", "වොෂින්ටන් ඩී.සී නගරයේ", "ජිනීවා නගරයේ" ], a:2 },
+
+{ q:"වර්තමානයේ IMF ආයතනය සතුව ප්‍රධාන ගොඩනැඟිලි කට්ටල කීයක් ක්‍රියාත්මක වේද?", o:[ "ගොඩනැඟිලි තුනක් පමණි", "ගොඩනැඟිලි දෙකක් පමණි", "ගොඩනැඟිලි හතරක් පමණි", "ගොඩනැඟිලි පහක් පමණි" ], a:1 },
+
+{ q:"ආරම්භයේදී IMF ආයතනය නිර්මාණය කිරීමට මූලිකව දායක වූ ආරම්භක සාමාජික රටවල් සංඛ්‍යාව කොපමණද?", o:[ "රටවල් 44ක්", "රටවල් 39ක්", "රටවල් 50ක්", "රටවල් 51ක්" ], a:0 },
+
+{ q:"IMF ආයතනයේ වත්මන් සාමාජික රටවල් සංඛ්‍යාව කොපමණද?", o:[ "රටවල් 189 ක්", "රටවල් 190 ක්", "රටවල් 191 ක්", "රටවල් 193 ක්" ], a:2 },
+
+{ q:"ලිස්ටෙන්ස්ටයින් (LIECHTENSTEIN) රට IMF හි 191 වැනි සාමාජිකයා ලෙස එකතු වූයේ කුමන වසරකද?", o:[ "2023 සැප්තැම්බර්", "2024 ඔක්තෝම්බර්", "2024 දෙසැම්බර්", "2025 ජනවාරි" ], a:1 },
+
+{ q:"IMF ආයතනය ප්‍රධාන වශයෙන් ක්‍රියාත්මක වන ගෝලීය අරමුණ වන්නේ කුමක්ද?", o:[ "ගෝලීය මූල්‍ය ස්ථාවරත්වය සහ ආර්ථික වර්ධනය සඳහා සහය වීම", "ලෝකයේ සියලුම රටවල බදු අනුපාත පාලනය කිරීම", "ජාත්‍යන්තර වෙළඳාම සම්පූර්ණයෙන් පාලනය කිරීම", "සියලුම රටවල මුදල් ඒකක එකම මුදල් ඒකකයකට පරිවර්තනය කිරීම" ], a:0 },
+
+{ q:"IMF ඉතිහාසයේ ස්වේච්ඡාවෙන් පමණක් ජාත්‍යන්තර මූල්‍ය අරමුදලින් ඉවත් වූ එකම රට කුමක්ද?", o:[ "කියුබාව", "වෙනිසියුලාව", "ආර්ජන්ටිනාව", "බොලිවියාව" ], a:0 },
+
+{ q:"2025 ඔක්තෝබර් මස වනවිට, සමස්තයක් ලෙස IMF ආයතනයෙන් ණය ලබා ඇති මුළු රටවල් සංඛ්‍යාව කොපමණද?", o:[ "රටවල් 76 ක්", "රටවල් 86 ක්", "රටවල් 96 ක්", "රටවල් 81 ක්" ], a:1 },
+
+{ q:"2025 ඔක්තෝබර් දත්ත වලට අනුව, ණය ලබාගත් රටවල් විසින් IMF ආයතනයට ගෙවිය යුතු මුළු ණය ප්‍රමාණය SDR වලින් කොපමණද?", o:[ "SDR බිලියන 108.9", "SDR බිලියන 115.9", "SDR බිලියන 118.9", "SDR බිලියන 128.9" ], a:2 },
+
+{ q:"SDR (SPECIAL DRAWING RIGHTS) යනු කුමක්ද?", o:[ "ජාත්‍යන්තර මූල්‍ය අරමුදල විසින් නිකුත් කරන ලද ණය කාඩ්පත් පද්ධතියකි", "ජාත්‍යන්තර මූල්‍ය අරමුදල විසින් නිර්මාණය කරන ලද ජාත්‍යන්තර සංචිත වත්කමකි", "ලෝක බැංකුව විසින් නිකුත් කරන ජාත්‍යන්තර මුදල් ඒකකයකි", "ජාත්‍යන්තර වෙළඳාම සඳහා භාවිත කරන භෞතික මුදල් නෝට්ටුවකි" ], a:1 },
+
+{ q:"SDR හි අගය (VALUE) තීරණය කරනු ලබන්නේ කුමක් මත පදනම්වද?", o:[ "එක්සත් ජනපද ඩොලරයේ අගය මත පමණි", "රන් සංචිතයේ වටිනාකම මත පමණි", "ප්‍රධාන මුදල් ඒකක පහකින් සමන්විත මුදල් බාස්කට් එකක විනිමය අනුපාත මතය", "තෙල් මිල සහ රන් මිල මතය" ], a:2 },
+
+{ q:"පහත සඳහන් මුදල් ඒකක වලින් කුමන මුදල් ඒකකය SDR (BASKET OF CURRENCIES) ඇතුළත් නොවේද?", o:[ "චීන යුවාන්", "ජපාන යෙන්", "ඉන්දියානු රුපියල", "එක්සත් ජනපද ඩොලරය" ], a:2 },
+
+{ q:"IMF විධායක මණ්ඩලයේ අධ්‍යක්ෂවරුන් (DIRECTORS) සංඛ්‍යාව කොපමණද?", o:[ "අධ්‍යක්ෂවරු 20 දෙනෙක්ගෙන්", "අධ්‍යක්ෂවරු 24 දෙනෙක්ගෙන්", "අධ්‍යක්ෂවරු 25 දෙනෙක්ගෙන්", "අධ්‍යක්ෂවරු 30 දෙනෙක්ගෙන්" ], a:1 },
+
+{ q:"ජාත්‍යන්තර මූල්‍ය අරමුදලේ (IMF) සාමාජික රටකට හිමි වන ඡන්ද බලය තීරණය වන්නේ කුමන සාධකය මතද?", o:[ "රටේ ජනගහනයේ ප්‍රමාණය මත", "රටේ භූමි ප්‍රමාණය මත", "මූල්‍ය දායකත්වයේ විශාලත්වය හෙවත් කෝටාව මත", "රටේ අපනයන ආදායම මත පමණි" ], a:2 },
+
+{ q:"IMF ආයතනයට අනුව වැඩිම මුළු ණය ප්‍රමාණයක් ලබා ඇති රට කුමක්ද?", o:[ "ශ්‍රී ලංකාව", "පාකිස්තානය", "ආර්ජන්ටිනාව", "යුක්රේනය" ], a:2 },
+
+{ q:"ආර්ජන්ටිනාව IMF ආයතනයෙන් ලබා ඇති ආසන්නතම මුළු ණය මුදල කොපමණද?", o:[ "ඩොලර් බිලියන 32.5 කි", "ඩොලර් බිලියන 38.5 කි", "ඩොලර් බිලියන 42.5 කි", "ඩොලර් බිලියන 52.5 කි" ], a:2 },
+
+{ q:"බලහත්කාරයෙන් IMF ආයතනයෙන් නෙරපා හරින ලද සහ පසුව 1990 දී නැවත සාමාජිකත්වය ලැබූ රට කුමක්ද?", o:[ "චෙකොස්ලොවැකියාව", "පෝලන්තය", "හංගේරියාව", "රුමේනියාව" ], a:0 },
+
+{ q:"IMF ආයතනයට සිය සාමාජික රටවලට ආසන්න වශයෙන් ලබා දිය හැකි උපරිම මූල්‍ය ණය ප්‍රමාණය කොපමණද?", o:[ "ඩොලර් බිලියන 500 යි", "ඩොලර් බිලියන 750 යි", "ඩොලර් ට්‍රිලියන 1 යි", "ඩොලර් ට්‍රිලියන 2 යි" ], a:2 },
+
+{ q:"IMF ආයතනය විසින් රටවලට ණය ලබා දීමේදී සාමාන්‍යයෙන් ඉල්ලා සිටින ප්‍රතිපත්තිමය ප්‍රතිසංස්කරණ හැඳින්වෙන්නේ කුමන නමින්ද?", o:[ "Monetary expansion", "Structural adjustment (ව්‍යුහාත්මක ගැලපුම් ප්‍රතිසංස්කරණ)", "Fiscal isolation", "Economic liberalization only" ], a:1 },
+
+{ q:"යුරෝපීය කලාපයේ IMF ආයතනයෙන් වැඩිම ණය ගෙන ඇති රට ලෙස ගෝලීය ලැයිස්තුවේ 2 වැනි ස්ථානය හිමි කරගෙන සිටින්නේ කුමන රටද?", o:[ "හංගේරියාව", "රුමේනියාව", "යුක්රේනය", "ග්‍රීසිය" ], a:2 },
+
+{ q:"ආසියාතික කලාපයේ IMF ආයතනයෙන් වැඩිම ණය ගෙන ඇති රට ලෙස ගෝලීය ලැයිස්තුවේ 4 වැනි ස්ථානයේ පසුවන රට කුමක්ද?", o:[ "බංග්ලාදේශය", "පාකිස්තානය", "ශ්‍රී ලංකාව", "ඉන්දුනීසියාව" ], a:1 },
+
+{ q:"ආසියාතික කලාපීය ලැයිස්තුවේ පාකිස්තානයට පහළින් සහ ගෝලීය ලැයිස්තුවේ 13 වැනි ස්ථානයේ සිටිමින් IMF ණය ලබා ඇති රට කුමක්ද?", o:[ "බංග්ලාදේශය", "ශ්‍රී ලංකාව", "නේපාලය", "මියන්මාරය" ], a:1 },
+
+{ q:"ජාත්‍යන්තර මූල්‍ය අරමුදලේ (IMF) වත්මන් කළමනාකාර අධ්‍යක්ෂවරයා කවුද?", o:[ "ජෙරොම් පවෙල්", "ක්‍රිස්ටලිනා ජෝර්ජීවා (KRISTALINA GEORGIEVA)", "අජේ බංගා", "ඇන්ටෝනියෝ ගුටරෙස්" ], a:1 },
+
+{ q:"ජාත්‍යන්තර මූල්‍ය අරමුදලේ (IMF) ප්‍රථම කළමනාකාර අධ්‍යක්ෂවරයා ලෙස 1946 වසරේදී පත්වූයේ කවුද?", o:[ "ජෝන් මේනාඩ් කේන්ස්", "කමිලේ ගුට් (CAMILLE GUTT)", "රොබට් මැක්නමාරා", "හැරී ඩෙක්ස්ටර් වයිට්" ], a:1 },
+
+{ q:"සංඛ්‍යාත්මකව වැඩිම රටවල් ප්‍රමාණයක් IMF ආයතනයෙන් ණය ලබාගෙන ඇති භූගෝලීය කලාපය කුමක්ද?", o:[ "යුරෝපීය කලාපය", "ආසියානු කලාපය", "අප්‍රිකානු කලාපය (විශේෂයෙන් උප-සහරා අප්‍රිකාව)", "උතුරු ඇමරිකානු කලාපය" ], a:2 },
+
+{ q:"ජාත්‍යන්තර මූල්‍ය අරමුදලේ (IMF) වැඩිම කෝටා හිමි ප්‍රධාන ආර්ථික බලවතුන් ලෙස ස්ථිර/නිත්‍ය බලය (විශේෂ ආසන) හිමි රටවල් 5 ඇතුළත් නොවන පිළිතුර කුමක්ද?", o:[ "එක්සත් ජනපදය, ජපානය, ජර්මනිය, ප්‍රංශය, එක්සත් රාජධානිය", "චීනය, ජපානය, ඉන්දියාව, ප්‍රංශය, ජර්මනිය", "එක්සත් ජනපදය, චීනය, ජර්මනිය, ඉතාලිය, එක්සත් රාජධානිය", "එක්සත් ජනපදය, ජපානය, කැනඩාව, ප්‍රංශය, එක්සත් රාජධානිය" ], a:0 },
+
+{ q:"අප්‍රිකානු සහ ආසියානු කලාපවල බොහෝ සංවර්ධනය වෙමින් පවතින රටවල් IMF වෙතින් ණය ලබාගැනීමට ප්‍රධාන වශයෙන් මුහුණ දෙන පොදු ආර්ථික පීඩනය කුමක්ද?", o:[ "මුදල් ඒකක අවප්‍රමාණය වීම හා රාජ්‍ය මූල්‍ය පීඩන", "අධික කාර්මික නිෂ්පාදනය හා අපනයන අතිරික්තය", "අධික විදේශ විනිමය සංචිත හා අඩු ණය බර", "අධික සංචාරක ආදායම හා රාජ්‍ය ආදායම් වැඩිවීම" ], a:0 },
+
+{ q:"ශ්‍රී ලංකාව නිල වශයෙන් ජාත්‍යන්තර මූල්‍ය අරමුදලේ (IMF) සාමාජිකයෙකු බවට පත්වූයේ කුමන දිනයේද?", o:[ "1950 අගෝස්තු 29", "1951 අගෝස්තු 29", "1949 අගෝස්තු 29", "1950 සැප්තැම්බර් 29" ], a:0 },
+
+{ q:"ශ්‍රී ලංකාව IMF ආයතනයට සම්බන්ධ වන අවස්ථාවේදී එහි කවර වැනි සාමාජිකයෙකු ලෙස එකතු වූයේද?", o:[ "40 වැනි සාමාජිකයා ලෙස", "45 වැනි සාමාජිකයා ලෙස", "50 වැනි සාමාජිකයා ලෙස", "55 වැනි සාමාජිකයා ලෙස" ], a:2 },
+
+{ q:"ශ්‍රී ලංකාව 2022 දරුණු ආර්ථික අර්බුදය හමුවේ IMF ආයතනයෙන් ලබා ගැනීමට කටයුතු කළ ප්‍රධාන ණය පහසුකම හැඳින්වෙන්නේ කුමන නමකින්ද?", o:[ "Rapid Financing Instrument (RFI)", "විස්තීර්ණ අරමුදල් පහසුකම (Extended Fund Facility - EFF)", "Stand-By Arrangement (SBA)", "Rapid Credit Facility (RCF)" ], a:1 },
+
+{ q:"2023 වසරේදී ශ්‍රී ලංකාව IMF ආයතනයෙන් ලබාගත් විස්තීර්ණ අරමුදලේ පහසුකමේ (EFF) දළ වටිනාකම කොපමණද?", o:[ "ඇමරිකානු ඩොලර් බිලියන 1.3 ක් පමණ", "ඇමරිකානු ඩොලර් බිලියන 2.3 ක් පමණ", "ඇමරිකානු ඩොලර් බිලියන 3.3 ක් පමණ", "ඇමරිකානු ඩොලර් බිලියන 4.3 ක් පමණ" ], a:1 },
+
+{ q:"2023 වසරේ ලබාගත් ණය පහසුකම ද සමඟින්, මෙතෙක් ශ්‍රී ලංකාව ජාත්‍යන්තර මූල්‍ය අරමුදලෙන් (IMF) ණය වැඩසටහන් හෝ පහසුකම් ලබාගෙන ඇති මුළු වාර ගණන කොපමණද?", o:[ "15 වතාවක්", "16 වතාවක්", "17 වතාවක්", "18 වතාවක්" ], a:2 },
+
+{ q:"ජාත්‍යන්තර මූල්‍ය අරමුදලේ (IMF) ස්ථිර / නිත්‍ය බලය (විශේෂ ආසන) හිමි ප්‍රධාන රටවල් 5 අතරට අයත් නොවන රට කුමක්ද?", o:[ "එක්සත් රාජධානිය", "ප්‍රංශය", "ජපානය", "ඉන්දියාව" ], a:3 },
+
+{ q:"2025 අංක 2 දරන ආදායම් බදු (සංශෝධන) පනත මගින් ප්‍රධාන වශයෙන් සංශෝධනය වූයේ කුමන බදු වර්ගය සම්බන්ධයෙන්ද?", o:[ "වත්කම් බද්ද", "රඳවා ගැනීමේ බද්ද", "වැට් (VAT) බද්ද", "රේගු බද්ද" ], a:1 },
+
+{ q:"ශ්‍රී ලංකාව විසින් නිකුත් කරන ලද දිගම තැපැල් මුද්දරය කුමක් සැමරීම සඳහා නිකුත් කරන ලද්දක්ද?", o:[ "මහනුවර දළදා පෙරහැර", "මහවැලි සංවර්ධන ව්‍යාපෘතිය", "ශ්‍රී ලංකා නිදහස් දිනය", "ජාත්‍යන්තර කාන්තා දිනය" ], a:0 },
+
+{ q:"2024 වසරේ ශ්‍රී ලංකාවේ මිලියන 2 වැනි සංචාරකයා වූ PRASAN INGANUNANT මහතා කුමන රටක පුරවැසියෙක්ද?", o:[ "ඉන්දියාව", "චීනය", "තායිලන්තය", "වියට්නාමය" ], a:2 },
+
+{ q:"1948 - 1978 කාලය තුළ වැඩි වරක් ශ්‍රී ලංකාවේ අග්‍රාමාත්‍ය ලෙස කටයුතු කළ පුද්ගලයා කවුද?", o:[ "ඩී. එස්. සේනානායක", "ඩඩ්ලි සේනානායක", "සිරිමාවෝ බණ්ඩාරනායක", "ජේ. ආර්. ජයවර්ධන" ], a:1 },
+
+{ q:"ශුද්ධෝත්තම පළමු වෙනි ෆ්‍රැන්සිස් පාප් වහන්සේගේ දේහය තැන්පත් කළ දේවස්ථානය කුමක්ද?", o:[ "රෝමයේ ශාන්ත මේරි බැසිලිකා දේවස්ථානය (Basilica of Santa Maria Maggiore)", "වතිකානයේ ශාන්ත පීතර බැසිලිකා දේවස්ථානය", "රෝමයේ ශාන්ත ජෝන් ලැටරන් බැසිලිකා දේවස්ථානය", "රෝමයේ ශාන්ත පෝල් මුනිඳුන්ගේ බැසිලිකා දේවස්ථානය" ], a:0 },
+
+{ q:"ශ්‍රී ලංකාව සහ ඉන්දියාව අතර අත්සන් කරන ලද පහත ගිවිසුම් සහ වර්ෂ අතරින් වැරදි ලෙස දක්වා ඇත්තේ කුමක්ද?", o:[ "නේරු - කොතලාවල ගිවිසුම (1954)", "සිරිමා - ශාස්ත්‍රී ගිවිසුම (1964)", "කච්චතිවු ගිවිසුම (1972)", "ඉන්දු - ලංකා ගිවිසුම (1987)" ], a:2 },
+
+{ q:"ත්‍රිකුණාමලයේ බලශක්ති මධ්‍යස්ථානය සංවර්ධනය කිරීම සඳහා වූ ත්‍රෛපාර්ශ්වික අවබෝධතා ගිවිසුමට ඇතුළත් වන රටවල් තුන කුමක්ද?", o:[ "ශ්‍රී ලංකාව, ඉන්දියාව, එක්සත් අරාබි එමීර් රාජ්‍යය", "ශ්‍රී ලංකාව, බංග්ලාදේශය, ඉන්දියාව", "ශ්‍රී ලංකාව, ජපානය, එක්සත් අරාබි එමීර් රාජ්‍යය", "ශ්‍රී ලංකාව, පකිස්ථානය, ඉන්දියාව" ], a:0 },
+
+{ q:"අලිමංකඩ (ELEPHANT PASS) ලුණු ලේවා පරිශ්‍රයේදී විවෘත වූ නව මේස ලුණු නිෂ්පාදන කර්මාන්ත ශාලාව මගින් වෙළඳපොලට නිකුත් කරන ලද ලුණු වෙළඳ නාමය කුමක්ද?", o:[ "අලිමංකඩ ලුණු", "රජ ලුණු", "ජාතික ලුණු", "සාගර ලුණු" ], a:1 },
+
+{ q:"2025 වසරේදී 'ශ්‍රී ලංකා මිත්‍ර විභූෂණ' සම්මානයෙන් ඉන්දීය අග්‍රාමාත්‍ය නරේන්ද්‍ර මෝදි පිදුම් ලැබීය. එම සම්මානය පිරිනැමීම ආරම්භ කරන ලද්දේ කුමන වසරේද?", o:[ "2005 වසරේදී", "2008 වසරේදී", "2010 වසරේදී", "2014 වසරේදී" ], a:1 },
+
+
+];
+
+
+/* ============================================================
+   VARIABLES
+============================================================ */
+
+let current = 0;
+
+let answers = Array(questions.length).fill(null);
+
+let locked = Array(questions.length).fill(false);
+
+let time = 1200;
+
+let timerInterval;
+
+
+/* ============================================================
+   START QUIZ
+============================================================ */
+
+function startQuiz(){
+
+    document
+        .getElementById("startScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("resultScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("quizScreen")
+        .classList.remove("hidden");
+
+    current = 0;
+
+    answers.fill(null);
+
+    locked.fill(false);
+
+    time = 3000;
+
+    clearInterval(timerInterval);
+
+    timerInterval = setInterval(tick,1000);
+
+    render();
+}
+
+
+/* ============================================================
+   TIMER
+============================================================ */
+
+function tick(){
+
+    time--;
+
+    let minutes = Math.floor(time / 60);
+
+    let seconds = time % 60;
+
+    document.getElementById("timer").textContent =
+        `⏱️ Time: ${minutes}:${String(seconds).padStart(2,"0")}`;
+
+    if(time <= 60){
+
+        document
+            .getElementById("timer")
+            .classList.add("warning");
+
+    }
+
+    if(time <= 0){
+
+        clearInterval(timerInterval);
+
+        finishQuiz();
+
+    }
+
+}
+
+
+/* ============================================================
+   RENDER QUESTION
+============================================================ */
+
+function render(){
+
+    const q = questions[current];
+
+    const qBox = document.querySelector(".question-box");
+
+    qBox.style.animation = "none";
+
+    void qBox.offsetWidth;
+
+    qBox.style.animation = "questionIn .5s ease";
+
+
+    document.getElementById("qNumber").textContent =
+        `Question ${current + 1} / ${questions.length}`;
+
+
+    document.getElementById("question").textContent = q.q;
+
+
+    const box = document.getElementById("options");
+
+    box.innerHTML = "";
+
+
+    q.o.forEach((opt,i)=>{
+
+        const b = document.createElement("button");
+
+        b.className = "option";
+
+        b.style.animation =
+            `reviewIn .4s ease ${i * .08}s both`;
+
+
+        const letter = document.createElement("div");
+
+        letter.className = "option-letter";
+
+        letter.textContent =
+            String.fromCharCode(65+i);
+
+
+        const text = document.createElement("div");
+
+        text.className = "option-text";
+
+        text.textContent = opt;
+
+
+        const icon = document.createElement("div");
+
+        icon.className = "option-icon";
+
+
+        if(locked[current]){
+
+            if(i === q.a){
+
+                b.classList.add("correct");
+
+                icon.textContent = "✓";
+
+            }
+
+            if(i === answers[current] && i !== q.a){
+
+                b.classList.add("wrong");
+
+                icon.textContent = "✕";
+
+            }
+
+        }
+
+
+        b.appendChild(letter);
+
+        b.appendChild(text);
+
+        b.appendChild(icon);
+
+
+        if(!locked[current]){
+
+            b.onclick = function(e){
+
+                createRipple(e,b);
+
+                selectAnswer(i);
+
+            };
+
+        }
+
+
+        box.appendChild(b);
+
+    });
+
+
+    renderFeedback();
+
+
+    const percentage =
+        ((current+1) / questions.length) * 100;
+
+    document.getElementById("progressBar").style.width =
+        percentage + "%";
+
+
+    const prevBtn =
+        document.getElementById("prevBtn");
+
+    prevBtn.disabled = current === 0;
+
+    prevBtn.style.opacity =
+        current === 0 ? ".5" : "1";
+
+
+    const nextBtn =
+        document.getElementById("nextBtn");
+
+
+    if(locked[current]){
+
+        nextBtn.disabled = false;
+
+        nextBtn.textContent =
+            current === questions.length-1
+            ? "🏁 Finish"
+            : "Next →";
+
+    }else{
+
+        nextBtn.disabled = true;
+
+        nextBtn.textContent =
+            "Select Answer";
+
+    }
+
+}
+
+
+/* ============================================================
+   SELECT ANSWER
+============================================================ */
+
+function selectAnswer(index){
+
+    if(locked[current]) return;
+
+
+    answers[current] = index;
+
+    locked[current] = true;
+
+
+    const correct =
+        index === questions[current].a;
+
+
+    if(correct){
+
+        createConfetti();
+
+        playSuccessAnimation();
+
+    }else{
+
+        playWrongAnimation();
+
+    }
+
+
+    render();
+
+}
+
+
+/* ============================================================
+   FEEDBACK
+============================================================ */
+
+function renderFeedback(){
+
+    const feedback =
+        document.getElementById("feedback");
+
+    if(!locked[current]){
+
+        feedback.className = "hidden";
+
+        feedback.innerHTML = "";
+
+        return;
+
+    }
+
+
+    const q = questions[current];
+
+    const correct =
+        answers[current] === q.a;
+
+
+    feedback.className =
+        "feedback " +
+        (correct
+            ? "correct-feedback"
+            : "wrong-feedback");
+
+
+    if(correct){
+
+        feedback.innerHTML = `
+            <span class="feedback-icon">✓</span>
+
+            <div class="feedback-title">
+                🎉 Correct Answer!
+            </div>
+
+            <div class="correct-answer">
+                Excellent! ඔබ නිවැරදි පිළිතුර තෝරාගෙන ඇත.
+            </div>
+        `;
+
+    }else{
+
+        feedback.innerHTML = `
+            <span class="feedback-icon">✕</span>
+
+            <div class="feedback-title">
+                ❌ Wrong Answer
+            </div>
+
+            <div class="correct-answer">
+                නිවැරදි පිළිතුර:
+                <b>${q.o[q.a]}</b>
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* ============================================================
+   NEXT
+============================================================ */
+
+function nextQuestion(){
+
+    if(!locked[current]){
+
+        return;
+
+    }
+
+
+    if(current < questions.length - 1){
+
+        current++;
+
+        render();
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+    }else{
+
+        finishQuiz();
+
+    }
+
+}
+
+
+/* ============================================================
+   PREVIOUS
+============================================================ */
+
+function previousQuestion(){
+
+    if(current > 0){
+
+        current--;
+
+        render();
+
+    }
+
+}
+
+
+/* ============================================================
+   SUCCESS ANIMATION
+============================================================ */
+
+function playSuccessAnimation(){
+
+    const card =
+        document.getElementById("quizScreen");
+
+    card.animate(
+        [
+            {
+                transform:"scale(1)"
+            },
+            {
+                transform:"scale(1.015)"
+            },
+            {
+                transform:"scale(1)"
+            }
+        ],
+        {
+            duration:500,
+            easing:"ease-out"
+        }
+    );
+
+}
+
+
+/* ============================================================
+   WRONG ANIMATION
+============================================================ */
+
+function playWrongAnimation(){
+
+    const card =
+        document.getElementById("quizScreen");
+
+    card.animate(
+        [
+            {
+                transform:"translateX(0)"
+            },
+            {
+                transform:"translateX(-8px)"
+            },
+            {
+                transform:"translateX(8px)"
+            },
+            {
+                transform:"translateX(-6px)"
+            },
+            {
+                transform:"translateX(6px)"
+            },
+            {
+                transform:"translateX(0)"
+            }
+        ],
+        {
+            duration:500
+        }
+    );
+
+}
+
+
+/* ============================================================
+   CONFETTI
+============================================================ */
+
+function createConfetti(){
+
+    const emojis = [
+        "🎉",
+        "✨",
+        "⭐",
+        "🎊",
+        "💙",
+        "💚",
+        "🏆"
+    ];
+
+
+    for(let i=0;i<35;i++){
+
+        const confetti =
+            document.createElement("div");
+
+        confetti.className = "confetti";
+
+        confetti.textContent =
+            emojis[Math.floor(
+                Math.random()*emojis.length
+            )];
+
+
+        confetti.style.left =
+            Math.random()*100 + "vw";
+
+
+        confetti.style.fontSize =
+            (12 + Math.random()*18) + "px";
+
+
+        confetti.style.animationDuration =
+            (1.5 + Math.random()*2) + "s";
+
+
+        confetti.style.animationDelay =
+            Math.random()*.3 + "s";
+
+
+        document.body.appendChild(confetti);
+
+
+        setTimeout(()=>{
+            confetti.remove();
+        },4000);
+
+    }
+
+}
+
+
+/* ============================================================
+   RIPPLE
+============================================================ */
+
+function createRipple(event,button){
+
+    const circle =
+        document.createElement("span");
+
+    circle.className = "ripple";
+
+
+    const rect =
+        button.getBoundingClientRect();
+
+
+    const size =
+        Math.max(rect.width,rect.height);
+
+
+    circle.style.width =
+        circle.style.height =
+        size + "px";
+
+
+    circle.style.left =
+        event.clientX - rect.left - size/2 + "px";
+
+
+    circle.style.top =
+        event.clientY - rect.top - size/2 + "px";
+
+
+    button.appendChild(circle);
+
+
+    setTimeout(()=>{
+        circle.remove();
+    },600);
+
+}
+
+
+/* ============================================================
+   FINISH QUIZ
+============================================================ */
+
+function finishQuiz(){
+
+    clearInterval(timerInterval);
+
+
+    let correct = 0;
+
+
+    questions.forEach((q,i)=>{
+
+        if(answers[i] === q.a){
+
+            correct++;
+
+        }
+
+    });
+
+
+    const wrong =
+        questions.length - correct;
+
+
+    const percentage =
+        Math.round(
+            correct / questions.length * 100
+        );
+
+
+    document
+        .getElementById("quizScreen")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("resultScreen")
+        .classList.remove("hidden");
+
+
+    document.getElementById("score").textContent =
+        `${correct} / ${questions.length}`;
+
+
+    document.getElementById("correctCount").textContent =
+        correct;
+
+
+    document.getElementById("wrongCount").textContent =
+        wrong;
+
+
+    document.getElementById("percentage").textContent =
+        percentage + "%";
+
+
+    let message;
+
+
+    if(percentage >= 90){
+
+        message = "🏆 Outstanding! ඔබ සුපිරි වැඩක් කරලා තියෙනවා!";
+
+    }
+    else if(percentage >= 75){
+
+        message = "🎉 Excellent! ඉතා හොඳ ප්‍රතිඵලයක්!";
+
+    }
+    else if(percentage >= 60){
+
+        message = "👏 Good Job! තවත් ටිකක් practice කරන්න!";
+
+    }
+    else if(percentage >= 40){
+
+        message = "💪 Keep Going! තව practice කළොත් පුළුවන්!";
+
+    }
+    else{
+
+        message = "📚 Don't Give Up! නැවත උත්සාහ කරන්න!";
+
+    }
+
+
+    document.getElementById("resultMessage").textContent =
+        message;
+
+
+    document.getElementById("resultText").textContent =
+        `ඔබගේ ලකුණු ප්‍රතිශතය: ${percentage}%`;
+
+
+    let review = "";
+
+
+    questions.forEach((q,i)=>{
+
+        const ok =
+            answers[i] === q.a;
+
+
+        review += `
+
+        <div class="
+            review-item
+            ${ok ? "correct-review" : "wrong-review"}
+        ">
+
+            <b>
+                ${i+1}.
+                ${ok ? "✅ Correct" : "❌ Wrong"}
+            </b>
+
+            <br>
+
+            ${q.q}
+
+            <br>
+
+            <small>
+
+                ඔබගේ පිළිතුර:
+                <b>
+                    ${
+                        answers[i] !== null
+                        ? q.o[answers[i]]
+                        : "No Answer"
+                    }
+                </b>
+
+                <br>
+
+                නිවැරදි පිළිතුර:
+                <b>
+                    ${q.o[q.a]}
+                </b>
+
+            </small>
+
+        </div>
+
+        `;
+
+    });
+
+
+    document.getElementById("review").innerHTML =
+        review;
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+
+    if(percentage >= 60){
+
+        createConfetti();
+
+        setTimeout(createConfetti,500);
+
+        setTimeout(createConfetti,1000);
+
+    }
+
+}
+
+
+/* ============================================================
+   RESTART
+============================================================ */
+
+function restartQuiz(){
+
+    document
+        .getElementById("resultScreen")
+        .classList.add("hidden");
+
+    startQuiz();
+
+}
+
+</script>
+
+</body>
+</html>

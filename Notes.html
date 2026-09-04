@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Galaxy | 4 Tabs</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+    min-height:100vh;
+    font-family:"Poppins",sans-serif;
+    color:#fff;
+    background:
+        radial-gradient(circle at 50% 0%,#191634 0%,#080817 40%,#020208 100%);
+    overflow-x:hidden;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+.background{
+    position:fixed;
+    inset:0;
+    z-index:-20;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+#particleCanvas{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+}
+
+.stars{
+    position:absolute;
+    inset:0;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px,rgba(255,255,255,.75),transparent),
+        radial-gradient(1px 1px at 100px 100px,rgba(255,255,255,.55),transparent),
+        radial-gradient(2px 2px at 300px 200px,rgba(255,255,255,.7),transparent),
+        radial-gradient(1px 1px at 500px 70px,rgba(255,255,255,.5),transparent),
+        radial-gradient(2px 2px at 700px 300px,rgba(255,255,255,.6),transparent);
+    background-size:800px 500px;
+    animation:starsMove 45s linear infinite;
+}
+
+.stars.two{
+    opacity:.45;
+    transform:scale(1.4);
+    animation-duration:75s;
+}
+
+.stars.three{
+    opacity:.25;
+    transform:scale(1.8);
+    animation-duration:110s;
+}
+
+@keyframes starsMove{
+    from{transform:translateY(0);}
+    to{transform:translateY(-500px);}
+}
+
+.glow-orb{
+    position:absolute;
+    width:420px;
+    height:420px;
+    border-radius:50%;
+    filter:blur(100px);
+    opacity:.22;
+    animation:orbFloat 12s ease-in-out infinite alternate;
+}
+
+.orb1{top:-170px;left:-160px;background:#7c3cff;}
+.orb2{top:25%;right:-170px;background:#00d9ff;animation-delay:-4s;}
+.orb3{bottom:-220px;left:28%;background:#ff00d4;animation-delay:-8s;}
+
+@keyframes orbFloat{
+    0%{transform:translate3d(0,0,0) scale(1);}
+    100%{transform:translate3d(50px,-30px,0) scale(1.15);}
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 6vw;
+    background:rgba(3,3,12,.48);
+    border-bottom:1px solid rgba(255,255,255,.06);
+    backdrop-filter:blur(18px);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo-icon{
+    width:46px;
+    height:46px;
+    display:grid;
+    place-items:center;
+    border-radius:14px;
+    font-family:"Orbitron",sans-serif;
+    font-size:22px;
+    font-weight:900;
+    background:linear-gradient(135deg,#7c3cff,#00d9ff);
+    box-shadow:0 0 25px rgba(124,60,255,.65);
+    animation:logoPulse 3s ease-in-out infinite;
+}
+
+@keyframes logoPulse{
+    0%,100%{box-shadow:0 0 20px rgba(124,60,255,.45);}
+    50%{box-shadow:0 0 42px rgba(0,217,255,.65);}
+}
+
+.logo-text{
+    display:flex;
+    flex-direction:column;
+    line-height:1;
+    font-family:"Orbitron",sans-serif;
+}
+
+.logo-text span{
+    font-size:17px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.logo-text small{
+    margin-top:5px;
+    color:#00d9ff;
+    font-size:8px;
+    letter-spacing:5px;
+}
+
+.back-button{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:10px 15px;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:12px;
+    background:rgba(255,255,255,.04);
+    color:rgba(255,255,255,.72);
+    font-size:12px;
+    font-weight:600;
+    transition:.3s ease;
+}
+
+.back-button:hover{
+    color:#fff;
+    transform:translateX(-4px);
+    border-color:rgba(0,217,255,.35);
+    box-shadow:0 0 28px rgba(0,217,255,.09);
+}
+
+/* =========================
+   MAIN PAGE
+========================= */
+.tab-page{
+    min-height:100vh;
+    padding:145px 6vw 80px;
+    display:flex;
+    align-items:center;
+}
+
+.tab-shell{
+    width:min(1150px,100%);
+    margin:auto;
+}
+
+.heading{
+    text-align:center;
+    margin-bottom:48px;
+    animation:fadeUp .9s ease both;
+}
+
+.tag{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:8px 15px;
+    margin-bottom:18px;
+    border:1px solid rgba(0,217,255,.24);
+    border-radius:50px;
+    background:rgba(0,217,255,.06);
+    color:#72eaff;
+    font-family:"Orbitron",sans-serif;
+    font-size:9px;
+    letter-spacing:2px;
+}
+
+.dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#00eaff;
+    box-shadow:0 0 10px #00eaff;
+    animation:pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse{
+    0%,100%{transform:scale(1);opacity:1;}
+    50%{transform:scale(1.8);opacity:.4;}
+}
+
+.heading h1{
+    margin-bottom:14px;
+    font-family:"Orbitron",sans-serif;
+    font-size:clamp(38px,6vw,68px);
+    line-height:1.05;
+}
+
+.heading h1 span{
+    display:inline-block;
+    background:linear-gradient(90deg,#8e48ff,#00eaff,#f54cff,#8e48ff);
+    background-size:300% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:gradientMove 5s linear infinite;
+}
+
+@keyframes gradientMove{
+    from{background-position:0 center;}
+    to{background-position:300% center;}
+}
+
+.heading p{
+    max-width:650px;
+    margin:auto;
+    color:rgba(255,255,255,.5);
+    font-size:13px;
+    line-height:1.8;
+}
+
+/* =========================
+   4 TABS
+========================= */
+.tab-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:24px;
+}
+
+.tab-card{
+    position:relative;
+    min-height:245px;
+    overflow:hidden;
+    padding:30px;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:26px;
+    background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.018));
+    backdrop-filter:blur(18px);
+    transition:
+        transform .42s cubic-bezier(.2,.8,.2,1),
+        border-color .35s ease,
+        box-shadow .35s ease;
+    animation:fadeUp .8s ease both;
+}
+
+.tab-card:nth-child(2){animation-delay:.10s;}
+.tab-card:nth-child(3){animation-delay:.20s;}
+.tab-card:nth-child(4){animation-delay:.30s;}
+
+.tab-card::before{
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    top:-165px;
+    right:-120px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(0,217,255,.22),transparent 70%);
+    transition:transform .5s ease;
+}
+
+.tab-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,transparent 35%,rgba(255,255,255,.08) 50%,transparent 65%);
+    transform:translateX(-135%);
+    transition:transform .7s ease;
+    pointer-events:none;
+}
+
+.tab-card:hover{
+    transform:translateY(-11px) scale(1.015);
+    border-color:rgba(0,217,255,.36);
+    box-shadow:
+        0 26px 70px rgba(0,0,0,.38),
+        0 0 50px rgba(0,217,255,.09);
+}
+
+.tab-card:hover::before{transform:scale(1.45);}
+.tab-card:hover::after{transform:translateX(135%);}
+
+/* Different glow for each tab */
+.tab-card.tab2::before{
+    background:radial-gradient(circle,rgba(174,70,255,.26),transparent 70%);
+}
+.tab-card.tab3::before{
+    background:radial-gradient(circle,rgba(255,185,50,.24),transparent 70%);
+}
+.tab-card.tab4::before{
+    background:radial-gradient(circle,rgba(0,255,170,.24),transparent 70%);
+}
+
+.tab-content{
+    position:relative;
+    z-index:2;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+}
+
+.tab-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+}
+
+.tab-number{
+    color:rgba(255,255,255,.28);
+    font-family:"Orbitron",sans-serif;
+    font-size:11px;
+    letter-spacing:2px;
+}
+
+.tab-icon{
+    width:62px;
+    height:62px;
+    display:grid;
+    place-items:center;
+    border-radius:18px;
+    background:rgba(255,255,255,.06);
+    font-size:30px;
+    transition:.4s ease;
+}
+
+.tab-card:hover .tab-icon{
+    transform:translateY(-5px) rotate(-6deg) scale(1.08);
+    box-shadow:0 0 32px rgba(0,217,255,.15);
+}
+
+.tab-card h2{
+    margin:24px 0 10px;
+    font-family:"Orbitron",sans-serif;
+    font-size:clamp(22px,2.5vw,31px);
+}
+
+.tab-card p{
+    color:rgba(255,255,255,.46);
+    font-size:12px;
+    line-height:1.75;
+}
+
+.open-tab{
+    margin-top:auto;
+    padding-top:22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:#69eaff;
+    font-family:"Orbitron",sans-serif;
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+.tab2 .open-tab{color:#c38bff;}
+.tab3 .open-tab{color:#ffc65e;}
+.tab4 .open-tab{color:#50ffc7;}
+
+.arrow{
+    font-size:23px;
+    transition:transform .3s ease;
+}
+
+.tab-card:hover .arrow{transform:translateX(8px);}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(35px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:760px){
+    .navbar{padding:15px 5vw;}
+    .tab-page{padding:125px 5vw 60px;}
+    .tab-grid{grid-template-columns:1fr;}
+}
+
+@media(max-width:450px){
+    .logo-text{display:none;}
+    .heading h1{font-size:38px;}
+    .tab-card{
+        min-height:225px;
+        padding:24px;
+    }
+    .back-button span:last-child{display:none;}
+}
+
+@media(prefers-reduced-motion:reduce){
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+    }
+}
+
+/* =========================================================
+   LEVEL SELECTION PAGES
+   Shared style for Quiz Type -> Level navigation
+========================================================= */
+
+.level-page{
+    min-height:100vh;
+    padding:130px 5vw 80px;
+}
+
+.level-shell{
+    width:min(1100px,100%);
+    margin:0 auto;
+}
+
+.level-back{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:28px;
+    padding:11px 16px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
+    background:rgba(255,255,255,.04);
+    color:rgba(255,255,255,.72);
+    font-size:12px;
+    font-weight:600;
+    transition:.3s ease;
+}
+
+.level-back:hover{
+    transform:translateX(-5px);
+    color:#fff;
+    border-color:rgba(0,217,255,.35);
+    box-shadow:0 0 30px rgba(0,217,255,.08);
+}
+
+.level-heading{
+    text-align:center;
+    margin-bottom:42px;
+}
+
+.level-heading .section-tag{
+    margin-bottom:18px;
+}
+
+.level-heading h1{
+    margin:0 0 14px;
+    font-family:"Orbitron",sans-serif;
+    font-size:clamp(34px,6vw,64px);
+    line-height:1.05;
+}
+
+.level-heading h1 span{
+    background:linear-gradient(90deg,#8e48ff,#00eaff,#f54cff,#8e48ff);
+    background-size:300% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:gradientMove 5s linear infinite;
+}
+
+.level-heading p{
+    max-width:660px;
+    margin:0 auto;
+    color:rgba(255,255,255,.5);
+    line-height:1.8;
+    font-size:13px;
+}
+
+.level-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.level-card{
+    position:relative;
+    overflow:hidden;
+    min-height:205px;
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:24px;
+    background:
+        linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.018));
+    backdrop-filter:blur(16px);
+    transition:
+        transform .4s cubic-bezier(.2,.8,.2,1),
+        border-color .35s ease,
+        box-shadow .35s ease;
+}
+
+.level-card::before{
+    content:"";
+    position:absolute;
+    width:240px;
+    height:240px;
+    top:-130px;
+    right:-100px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(0,217,255,.20),transparent 70%);
+    transition:transform .5s ease;
+}
+
+.level-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,transparent 35%,rgba(255,255,255,.07) 50%,transparent 65%);
+    transform:translateX(-130%);
+    transition:transform .7s ease;
+    pointer-events:none;
+}
+
+.level-card:hover{
+    transform:translateY(-10px) scale(1.015);
+    border-color:rgba(0,217,255,.35);
+    box-shadow:
+        0 24px 65px rgba(0,0,0,.35),
+        0 0 45px rgba(0,217,255,.09);
+}
+
+.level-card:hover::before{
+    transform:scale(1.35);
+}
+
+.level-card:hover::after{
+    transform:translateX(130%);
+}
+
+.level-top{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.level-number{
+    font-family:"Orbitron",sans-serif;
+    font-size:12px;
+    letter-spacing:2px;
+    color:rgba(255,255,255,.28);
+}
+
+.level-icon{
+    width:52px;
+    height:52px;
+    display:grid;
+    place-items:center;
+    border-radius:16px;
+    background:rgba(255,255,255,.055);
+    font-size:25px;
+    box-shadow:inset 0 0 20px rgba(255,255,255,.02);
+}
+
+.level-card h2{
+    position:relative;
+    z-index:2;
+    margin-top:22px;
+    margin-bottom:8px;
+    font-family:"Orbitron",sans-serif;
+    font-size:23px;
+}
+
+.level-card p{
+    position:relative;
+    z-index:2;
+    color:rgba(255,255,255,.45);
+    font-size:12px;
+    line-height:1.7;
+}
+
+.level-open{
+    position:relative;
+    z-index:2;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:22px;
+    color:#68eaff;
+    font-family:"Orbitron",sans-serif;
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+.level-open .arrow{
+    font-size:22px;
+    transition:transform .3s ease;
+}
+
+.level-card:hover .level-open .arrow{
+    transform:translateX(7px);
+}
+
+.level-locked{
+    opacity:.58;
+    cursor:not-allowed;
+}
+
+.level-locked:hover{
+    transform:none;
+    border-color:rgba(255,255,255,.09);
+    box-shadow:none;
+}
+
+.level-note{
+    margin-top:24px;
+    padding:18px 20px;
+    border:1px solid rgba(124,60,255,.18);
+    border-radius:18px;
+    background:rgba(124,60,255,.055);
+    color:rgba(255,255,255,.52);
+    text-align:center;
+    font-size:12px;
+    line-height:1.7;
+}
+
+@media(max-width:850px){
+    .level-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:560px){
+    .level-page{
+        padding:110px 5vw 60px;
+    }
+
+    .level-grid{
+        grid-template-columns:1fr;
+    }
+
+    .level-card{
+        min-height:190px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background">
+    <div class="stars"></div>
+    <div class="stars two"></div>
+    <div class="stars three"></div>
+
+    <div class="glow-orb orb1"></div>
+    <div class="glow-orb orb2"></div>
+    <div class="glow-orb orb3"></div>
+
+    <canvas id="particleCanvas"></canvas>
+</div>
+
+<header class="navbar">
+   <a href="index.html" class="logo">
+        <div class="logo-icon">Q</div>
+        <div class="logo-text">
+            <span>QUIZ</span>
+            <small>GALAXY</small>
+        </div>
+    </a>
+
+    <!-- Change index.html to your main/home page -->
+    <a href="index.html" class="back-button">
+        <span>←</span>
+        <span>BACK TO HOME</span>
+    </a>
+</header>
+
+<main class="tab-page">
+    <div class="tab-shell">
+
+        <div class="heading">
+            <div class="tag">
+                <span class="dot"></span>
+                SELECT YOUR NOTE
+            </div>
+
+            <h1>CHOOSE A <span>NOTE</span></h1>
+
+            <p>
+                Select one of the four tabs below to continue.
+                
+            </p>
+        </div>
+
+        <div class="tab-grid">
+
+            <!-- TAB 01 - change href="tab1.html" -->
+            <a href="Amarasri sir note.html" class="tab-card tab1">
+                <div class="tab-content">
+                    <div class="tab-top">
+                        <span class="tab-number">TAB 01</span>
+                        <div class="tab-icon">🌍</div>
+                    </div>
+
+                    <h2>Amarasri Sir</h2>
+                    <p>-</p>
+
+                    <div class="open-tab">
+                        <span>OPEN NOTE</span>
+                        <span class="arrow">→</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- TAB 02 - change href="tab2.html" -->
+            <a href="tab2.html" class="tab-card tab2">
+                <div class="tab-content">
+                    <div class="tab-top">
+                        <span class="tab-number">TAB 02</span>
+                        <div class="tab-icon">🧠</div>
+                    </div>
+
+                    <h2>Sarath Sir</h2>
+                    <p>-</p>
+
+                    <div class="open-tab">
+                        <span>OPEN NOTE</span>
+                        <span class="arrow">→</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- TAB 03 - change href="tab3.html" -->
+            <a href="Wadiya note.html" class="tab-card tab3">
+                <div class="tab-content">
+                    <div class="tab-top">
+                        <span class="tab-number">TAB 03</span>
+                        <div class="tab-icon">⚡</div>
+                    </div>
+
+                    <h2>Wadiya</h2>
+                    <p>-</p>
+
+                    <div class="open-tab">
+                        <span>OPEN NOTE</span>
+                        <span class="arrow">→</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- TAB 04 - change href="tab4.html" -->
+            <a href="Other note.html" class="tab-card tab4">
+                <div class="tab-content">
+                    <div class="tab-top">
+                        <span class="tab-number">TAB 04</span>
+                        <div class="tab-icon">🔥 </div>
+                    </div>
+
+                    <h2>Other</h2>
+                    <p>-</p>
+
+                    <div class="open-tab">
+                        <span>OPEN NOTE</span>
+                        <span class="arrow">→</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="level-note">
+            © 2026 Quiz Galaxy. All Rights Reserved | Designed By Tharinda Kaveen Nishad. 
+        </div>
+    </div>
+</main>
+
+
+
+<script>
+/* =========================
+   PARTICLE BACKGROUND
+========================= */
+const canvas = document.getElementById("particleCanvas");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+
+function resizeCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    createParticles();
+}
+
+function createParticles(){
+    const count = Math.min(95, Math.floor((canvas.width * canvas.height) / 14000));
+    particles = [];
+
+    for(let i = 0; i < count; i++){
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 1.5 + .35,
+            vx: (Math.random() - .5) * .22,
+            vy: (Math.random() - .5) * .22,
+            alpha: Math.random() * .55 + .18
+        });
+    }
+}
+
+function animateParticles(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    for(const p of particles){
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if(p.x < 0) p.x = canvas.width;
+        if(p.x > canvas.width) p.x = 0;
+        if(p.y < 0) p.y = canvas.height;
+        if(p.y > canvas.height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = `rgba(120,225,255,${p.alpha})`;
+        ctx.fill();
+    }
+
+    requestAnimationFrame(animateParticles);
+}
+
+window.addEventListener("resize",resizeCanvas);
+resizeCanvas();
+animateParticles();
+</script>
+
+</body>
+</html>
