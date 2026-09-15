@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>සාමාන්‍ය දැනීම - ප්‍රශ්න හා පිළිතුරු සටහන</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans Sinhala', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+            padding-bottom: 40px;
+        }
+
+        /* Header Section */
+        .header {
+            background-color: #0f172a;
+            color: #ffffff;
+            text-align: center;
+            padding: 45px 20px 65px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 24px;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background-color: #1e293b;
+            color: #f1f5f9;
+            padding: 8px 18px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: -35px auto 0;
+            padding: 0 20px;
+        }
+
+        /* Search Bar Card */
+        .search-card {
+            background: #ffffff;
+            padding: 16px;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 14px;
+            margin-bottom: 24px;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s;
+            color: #334155;
+        }
+
+        .search-input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .btn-print {
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            transition: background-color 0.2s;
+        }
+
+        .btn-print:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Question Cards */
+        .q-card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            border: 1px solid #f1f5f9;
+        }
+
+        .q-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .q-badge {
+            background-color: #dbeafe;
+            color: #1d4ed8;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        .q-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #1e293b;
+            line-height: 1.6;
+            margin-top: 2px;
+        }
+
+        /* Answer Box */
+        .a-box {
+            background-color: #f0fdf4;
+            border-left: 4px solid #10b981;
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .a-badge {
+            background-color: #dcfce7;
+            color: #15803d;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .a-text {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #065f46;
+            line-height: 1.5;
+        }
+
+        /* Print Styling */
+        @media print {
+            .header {
+                background: none;
+                color: #000;
+                padding: 10px 0;
+            }
+            .header p, .badges, .search-card {
+                display: none;
+            }
+            .container {
+                margin-top: 0;
+                max-width: 100%;
+                padding: 0;
+            }
+            .q-card {
+                page-break-inside: avoid;
+                border: 1px solid #cbd5e1;
+                box-shadow: none;
+                margin-bottom: 12px;
+            }
+        }
+                /* =========================================================
+   LEVEL SELECTION PAGES
+   Shared style for Quiz Type -> Level navigation
+========================================================= */
+
+.level-page{
+    min-height:100vh;
+    padding:130px 5vw 80px;
+}
+
+.level-shell{
+    width:min(1100px,100%);
+    margin:0 auto;
+}
+
+.level-back{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:28px;
+    padding:11px 16px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
+    background:rgba(255,255,255,.04);
+    color:rgba(255,255,255,.72);
+    font-size:12px;
+    font-weight:600;
+    transition:.3s ease;
+}
+
+.level-back:hover{
+    transform:translateX(-5px);
+    color:#fff;
+    border-color:rgba(0,217,255,.35);
+    box-shadow:0 0 30px rgba(0,217,255,.08);
+}
+
+.level-heading{
+    text-align:center;
+    margin-bottom:42px;
+}
+
+.level-heading .section-tag{
+    margin-bottom:18px;
+}
+
+.level-heading h1{
+    margin:0 0 14px;
+    font-family:"Orbitron",sans-serif;
+    font-size:clamp(34px,6vw,64px);
+    line-height:1.05;
+}
+
+.level-heading h1 span{
+    background:linear-gradient(90deg,#8e48ff,#00eaff,#f54cff,#8e48ff);
+    background-size:300% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:gradientMove 5s linear infinite;
+}
+
+.level-heading p{
+    max-width:660px;
+    margin:0 auto;
+    color:rgba(255,255,255,.5);
+    line-height:1.8;
+    font-size:13px;
+}
+
+.level-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.level-card{
+    position:relative;
+    overflow:hidden;
+    min-height:205px;
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:24px;
+    background:
+        linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.018));
+    backdrop-filter:blur(16px);
+    transition:
+        transform .4s cubic-bezier(.2,.8,.2,1),
+        border-color .35s ease,
+        box-shadow .35s ease;
+}
+
+.level-card::before{
+    content:"";
+    position:absolute;
+    width:240px;
+    height:240px;
+    top:-130px;
+    right:-100px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(0,217,255,.20),transparent 70%);
+    transition:transform .5s ease;
+}
+
+.level-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,transparent 35%,rgba(255,255,255,.07) 50%,transparent 65%);
+    transform:translateX(-130%);
+    transition:transform .7s ease;
+    pointer-events:none;
+}
+
+.level-card:hover{
+    transform:translateY(-10px) scale(1.015);
+    border-color:rgba(0,217,255,.35);
+    box-shadow:
+        0 24px 65px rgba(0,0,0,.35),
+        0 0 45px rgba(0,217,255,.09);
+}
+
+.level-card:hover::before{
+    transform:scale(1.35);
+}
+
+.level-card:hover::after{
+    transform:translateX(130%);
+}
+
+.level-top{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.level-number{
+    font-family:"Orbitron",sans-serif;
+    font-size:12px;
+    letter-spacing:2px;
+    color:rgba(255,255,255,.28);
+}
+
+.level-icon{
+    width:52px;
+    height:52px;
+    display:grid;
+    place-items:center;
+    border-radius:16px;
+    background:rgba(255,255,255,.055);
+    font-size:25px;
+    box-shadow:inset 0 0 20px rgba(255,255,255,.02);
+}
+
+.level-card h2{
+    position:relative;
+    z-index:2;
+    margin-top:22px;
+    margin-bottom:8px;
+    font-family:"Orbitron",sans-serif;
+    font-size:23px;
+}
+
+.level-card p{
+    position:relative;
+    z-index:2;
+    color:rgba(255,255,255,.45);
+    font-size:12px;
+    line-height:1.7;
+}
+
+.level-open{
+    position:relative;
+    z-index:2;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:22px;
+    color:#68eaff;
+    font-family:"Orbitron",sans-serif;
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+.level-open .arrow{
+    font-size:22px;
+    transition:transform .3s ease;
+}
+
+.level-card:hover .level-open .arrow{
+    transform:translateX(7px);
+}
+
+.level-locked{
+    opacity:.58;
+    cursor:not-allowed;
+}
+
+.level-locked:hover{
+    transform:none;
+    border-color:rgba(255,255,255,.09);
+    box-shadow:none;
+}
+
+.level-note{
+    margin-top:24px;
+    padding:18px 20px;
+    border:1px solid rgba(124,60,255,.18);
+    border-radius:18px;
+    background:rgba(124,60,255,.055);
+    color:rgba(255,255,255,.52);
+    text-align:center;
+    font-size:12px;
+    line-height:1.7;
+}
+
+@media(max-width:850px){
+    .level-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:560px){
+    .level-page{
+        padding:110px 5vw 60px;
+    }
+
+    .level-grid{
+        grid-template-columns:1fr;
+    }
+
+    .level-card{
+        min-height:190px;
+    }}
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>සාමාන්‍ය දැනීම - ප්‍රශ්න හා පිළිතුරු සටහන</h1>
+        <p>තරගකාරී විභාග සඳහා නිවැරදිම පිළිතුරු ඇතුළත් කෙටි සටහන් පද්ධතිය</p>
+        <div class="badges">
+            <span class="badge" id="qCountBadge">ප්‍රශ්න සංඛ්‍යාව: 100</span>
+            <span class="badge">තත්ත්වය: 100% නිවැරදි පිළිතුරු</span>
+            <span class="badge">යාවත්කාලීන: 2026/09/11 </span>
+        </div>
+        <div class="level-note">
+            © 2026 Quiz Galaxy. All Rights Reserved | Designed By Tharinda Kaveen Nishad. 
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="search-card">
+            <input type="text" id="searchInput" class="search-input" placeholder="ප්‍රශ්නයක් හෝ පිළිතුරක් සෙවීමට මෙහි ටයිප් කරන්න..." onkeyup="filterQA()">
+            <button class="btn-print" onclick="window.print()">🩻 මුද්‍රණය කරන්න (Print / PDF)</button>
+        </div>
+
+        <div id="qaList"></div>
+    </div>
+
+    <script>
+        const qaData = [
+            
+  { id: 1, q: "වර්තමාන (2025) පෝලන්ත අග්‍රාමාත්‍යවරයා කවුරුන්ද?", a: "ඩොනල්ඩ් ටස්ක්" },
+  { id: 2, q: "2025 වසරේ ලොව එක්තරා රටක සරම්ප රෝගය ඉතා ශීඝ්‍රයෙන් ව්‍යාප්ත විය. එම රට නම් කරන්න.", a: "ඇමරිකාව" },
+  { id: 3, q: "ලොව විශාලතම දූපත ලෙස සැලකෙන ග්‍රීන්ලන්තය කවර රාජ්‍යයකට අයත් ස්වයං පාලන ප්‍රදේශයක්ද?", a: "ඩෙන්මාර්කය" },
+  { id: 4, q: "ඩොනල්ඩ් ට්‍රම්ප්ගේ තීරණයකට අනුව ඇමරිකා එක්සත් ජනපදය 2025 වසරේ ජාත්‍යන්තර සංවිධානයකින් ඉවත් විය. එම සංවිධානය කුමක්ද?", a: "ලෝක සෞඛ්‍ය සංවිධානය" },
+  { id: 5, q: "වසර 40කට පසු 2024 වසරේදී දිගු දුර අන්තර් මහාද්වීපික බැලස්ටික් මිසයිලයක් අත්හදා බැලූ රට කුමක්ද?", a: "චීනය" },
+  { id: 6, q: "ගල්ෆ් නිවුස් වාර්තාවන්ට අනුව දකුණු ආසියාවේ ධනවත්ම පුද්ගලයා කවුරුන්ද?", a: "මුකේෂ් අම්බානි" },
+  { id: 7, q: "මෙරට පරිසර අමාත්‍යාංශයට අයත් වන සුරැකුම් මධ්‍යස්ථානයේ කෙටි දුරකථන අංකය කුමක්ද?", a: "1995" },
+  { id: 8, q: "වර්තමාන ජනාධිපති අනුර කුමාර දිසානායක මහතා 2026 වසර සඳහා වූ අයවැය යෝජනාව 2025 වසරේ ඉදිරිපත් කළේය. එය මෙරට කීවැනි අයවැය ප්‍රකාශයද?", a: "80" },
+  { id: 9, q: "ලදුරු රෝගය මෙරට මහජන සෞඛ්‍යයට තර්ජනයක් නොවන පරිදි පාලනය කිරීමට 1996 වන විට ශ්‍රී ලංකාවට හැකි විය. ලදුරු රෝගය මෙරටින් තුරන් කිරීමට අපේක්ෂා කරන්නේ කිනම් වසරකදීද?", a: "2035" },
+  { id: 10, q: "දකුණු ආසියානු සහයෝගිතා පරිසර වැඩසටහනේ (SACEP) කලාපීය මූලස්ථානය 2025 වසරේදී විවෘත කරන ලද්දේ කවර රටකදීද?", a: "ශ්‍රී ලංකාව" },
+  { id: 11, q: "අන්තර් පාර්ලිමේන්තු සංගමයේ (IPU) 2025 ඔක්තෝබර් මස කතර පැවති රැස්වීමේ මූලස්ථානය කුමන රටේද?", a: "ස්විට්සර්ලන්තය" },
+  { id: 12, q: "2025 ඔක්තෝබර් 13 වැනි දින සමරනු ලැබුවේ සී.ඩබ්ලිව්.ඩබ්ලිව්. කන්නන්ගර මහතාගේ කීවැනි ජන්ම දිනයද?", a: "141" },
+  { id: 13, q: "2025 කාන්තා ගෝලීය නායකයන්ගේ සමුළුව කිනම් රටක පැවැත්විණිද?", a: "චීනය" },
+  { id: 14, q: "එක්සත් ජාතීන්ගේ මහා මණ්ඩලයේ 80වැනි සැසිවාරයට සහභාගී වූ මෙරට ජනාධිපතිවරයා දකුණු අප්‍රිකානු ජනාධිපතිවරයා හමුවිය. ඔහු කවුරුන්ද?", a: "සිරිල් රමෆෝසා" },
+  { id: 15, q: "මධ්‍යම අධිවේගී මාර්ගයේ කඩවත අන්තර් හුවමාරුවේ සිට මීරිගම දක්වා මාර්ගයේ ඉදිකිරීම් අවසන් කිරීමට අපේක්ෂා කරන්නේ කිනම් වසරකදීද?", a: "2028" },
+  { id: 16, q: "ශ්‍රී ලංකාවෙන් එක්සත් රාජධානියට අපනයනය කරන ඇඟලුම් සඳහා වූ සියලුම තීරුබදු නිදහස් කිරීම කිනම් වසරකදී සිදුවන්නේද?", a: "2026" },
+  { id: 17, q: "මෙරට ධීවර ප්‍රජාවගේ ජීවිත සුරක්ෂිතතාව තහවුරු කිරීමේ අරමුණින් 2025 වසරේ හඳුන්වා දුන් ජීවිත රක්ෂණ ක්‍රමය කවර නමකින් හඳුන්වයිද?", a: "සයුර" },
+  { id: 18, q: "2025 වසරේ සිට ජාතික මව්කිරි දීමේ මාසය ලෙස නම් කරන ලද මාසය කුමක්ද?", a: "අගෝස්තු" },
+  { id: 19, q: "2025 වසරේ නව පොලිස්පතිවරයා ලෙස පත් වූ ප්‍රියන්ත වීරසූරිය මහතා මෙරට කීවැනි පොලිස්පතිවරයාද?", a: "37" },
+  { id: 20, q: "2025 වසරේ ආරම්භ වූ ඉඩම් හිමිකම් බලපත්‍ර හා ඔප්පු ලබාදීමේ ජාතික වැඩසටහන කුමන නමින් හඳුන්වනු ලබයිද?", a: "හිමිකම" },
+  { id: 21, q: "මාලදිවයිනේ වත්මන් ජනාධිපතිවරයා (2025) කවුරුන්ද?", a: "මොහොමඩ් මුයිසු" },
+  { id: 22, q: "චීන ශ්‍රී ලංකා මිත්‍රත්ව ජාතික වෘක්ෂවෙද විශේෂිත රෝහල කවර ප්‍රදේශයක ස්ථාපිත කර ඇතැයි සඳහන් වේද?", a: "පොළොන්නරුව" },
+  { id: 23, q: "ලෝක සෞඛ්‍ය සංවිධානයේ 78 වැනි වාර්ෂික මහා සමුළුව කිනම් රටේ පැවැත්විණිද?", a: "ස්විට්සර්ලන්තය" },
+  { id: 24, q: "2025 වසරේදී සමරනු ලැබූ ජාත්‍යන්තර කම්කරු දිනය ශ්‍රී ලංකාව තුළ පළමුවරට සමරනු ලැබුවේ කිනම් වසරකදීද?", a: "1933" },
+  { id: 25, q: "2025 වසරේ එක්තරා ආසියාතික රටක් පාර්ලිමේන්තුවට ගිනි තැබීමක් සිදු කර ඇත. එම රට කුමක්ද?", a: "නෙපාලය" },
+  { id: 26, q: "සුවසැරිය ගිලන් රථ සේවාවේ ප්‍රමුඛ අභිමතාර්ථය කුමක්ද?", a: "ජීවිත සුරක්ෂිත කිරීම" },
+  { id: 27, q: "නොවැම්බර් 10 දිනට යෙදී තිබුණු විද්‍යා දිනය මූලික කරගනිමින් 2025 වසරේ ක්‍රියාත්මක විද්‍යා සතියේ තේමාව කුමක්ද?", a: "විශ්වාසය ගොඩනගමින් පරිවර්තන යුගයක් කරා - ශ්‍රී ලංකාවේ හෙට දවස උදෙසා විද්‍යාව" },
+  { id: 28, q: "කප්තුරු සවිය ව්‍යාපෘතිය යටතේ 2025 වසරේ නොමිලේ බෙදා දීමට අපේක්ෂිත පොල් පැළ ගණන කොපමණද?", a: "ලක්ෂ 5" },
+  { id: 29, q: "2025 ජනාධිපති මාධ්‍ය සම්මාන උළෙලේ මෙවර තේමාව කුමක්ද?", a: "නවීකරණය තුළ විශ්වාසනීය මාධ්‍යකරණය" },
+  { id: 30, q: "ජාතික පිවිතුරු නිෂ්පාදන සම්මාන උළෙල 2025 වසරේදී පැවැත්විණි. එය කිනම් වසරේදී ආරම්භ කරන ලද්දේද?", a: "2007" },
+  { id: 31, q: "මෙරට රාජ්‍ය සේවකයන් සඳහා හඳුන්වා දී ඇති ඩිජිටල් ගෙවීම් පද්ධතිය කවර නමකින් හඳුන්වනු ලබයිද?", a: "Gov Pay" },
+  { id: 32, q: "සුවපත් රටක් උදෙසා Healthy Sri Lanka වැඩසටහන යටතේ ක්‍රියාත්මක ජංගම සුව සායන වැඩසටහන කවර නමින් හඳුන්වනු ලබයිද?", a: "ආරෝග්‍ය" },
+  { id: 33, q: "2025 ඔක්තෝබර් මස පැවති හදිසි අනතුරු පිළිබඳ ජාතික සමුළුවේ තේමාව කුමක්ද?", a: "කාලගුණික විපත්වලට මුහුණ දීම - පරිවර්තනයට එක්වීම" },
+  { id: 34, q: "ශ්‍රී ලංකාවේ නව පොහොර කර්මාන්ත ශාලාවක් ඉදිකිරීමට රජය අවධානය යොමු කර ඇති ප්‍රදේශය කුමක්ද?", a: "ත්‍රිකුණාමලය - චීන වරාය" },
+  { id: 35, q: "ලෝක සෞඛ්‍ය සංවිධානයේ දකුණු හා අග්නිදිග ආසියාතික රටවලින් සමන්විත 78 වැනි සමුළුවේ නව සභාපතිවරයා ලෙස තේරී පත් වූයේ කවුරුන්ද?", a: "නලින්ද ජයතිස්ස" },
+  { id: 36, q: "වර්තමාන රජයේ දරිද්‍රතාව තුරන් කිරීමේ ක්‍රියාවලියේ ප්‍රධාන වැඩසටහන කුමක්ද?", a: "ප්‍රජා ශක්ති" },
+  { id: 37, q: "වර්තමාන අධ්‍යාපන අමාත්‍යාංශ ලේකම්වරයා කවුරුන්ද?", a: "නාලක කළුවැව" },
+  { id: 38, q: "2025 ලෝක ජනාවාස දිනය ඔක්තෝබර් 5 වැනි දිනට යෙදී තිබුණි. මෙවර එහි තේමාව කුමක්ද?", a: "තමන්ගේම තැනක් - ලස්සන ජීවිතයක්" },
+  { id: 39, q: "සුවපත් රටක් උදෙසා Healthy Sri Lanka වැඩසටහන යටතේ ජනතාවට වඩාත් සමීප, පහසුවෙන් ප්‍රවේශ විය හැකි ස්ථානයක් ලෙස ඉදිකෙරෙන ප්‍රාථමික සෞඛ්‍ය සත්කාර මධ්‍යස්ථානය කවර නමකින් හඳුන්වනු ලබයිද?", a: "ආරෝග්‍ය සුවතා මධ්‍යස්ථාන" },
+  { id: 40, q: "2025 වසරේ විවෘත කෙරුණු යාපනය විශේෂිත ආර්ථික මධ්‍යස්ථානය කවර ප්‍රදේශයක පිහිටියේද?", a: "චාවකච්චේරි - ඔට්ටුවිල්" },
+  { id: 41, q: "මෙරට ජනාධිපති ලේකම්වරයා (2025) කවුරුන්ද?", a: "නන්දික සනත් කුමානායක" },
+  { id: 42, q: "දෙස් විදෙස් සංචාරකයින් සඳහා පිරිසිදු වෙරළක් ලබාදීමේ අරමුණින් 2025 වසරේ ආරම්භ කළ ව්‍යාපෘතිය කුමක්ද?", a: "නිල් දජය (තලල්ල මුහුදෙන්)" },
+  { id: 43, q: "2025 සැප්තැම්බර් මස 27 දිනට යෙදුණු ලෝක සංචාරක දිනයේ තේමාව කුමක්ද?", a: "සංචාරක කර්මාන්තය හා තිරසාර පරිවර්තනය" },
+  { id: 44, q: "එක්සත් ජාතීන්ගේ සංවිධානයේ වර්තමාන (2025) මහ ලේකම්වරයා කවුරුන්ද?", a: "අන්තෝනියෝ ගුටේරස්" },
+  { id: 45, q: "ශ්‍රී ලාංකීය ඉංජිනේරුවන්ගේ තාක්ෂණික දායකත්වයෙන් නිර්මාණය වූ තුන්වැනි නැනෝ චන්ද්‍රිකාව 2025 වසරේ අභ්‍යවකාශගත කරන ලදී. එහි නම කුමක්ද?", a: "BERT X DRAGEN FLY" },
+  { id: 46, q: "2016 වසරෙන් පසු පළාත් පාලන සභා 2025 වසරේ පැවැත්වූ මැතිවරණය කුමන නමින් හැඳින්විණිද?", a: "පුනරුදය පුරවර" },
+  { id: 47, q: "දුම්රිය ස්ථාන 100ක් නවීකරණය කිරීමේ ජාතික ක්‍රියාදාමය 2025 වසරේදී ආරම්භ කෙරිණි. එහි තේමාව කුමක්ද?", a: "සිහින ගමනාන්තය" },
+  { id: 48, q: "යාපනය ක්‍රීඩා නගරයේ ඉදිකිරීම් 2025 වසරේදී ආරම්භ විය. එය කවර දූපතකදීද?", a: "මන්දාතිව් දූපත" },
+  { id: 49, q: "ශ්‍රී ලංකා මහ බැංකුවේ 75 වන සංවත්සරය වෙනුවෙන් නිකුත් කළ මුදල් නෝට්ටුවේ වටිනාකම කීයද?", a: "රුපියල් 2,000" },
+  { id: 50, q: "2025 වසරේ ශ්‍රී ලංකාවේ සංචාරක නිරත අග්‍රාණ්ඬුකාරවරිය කවුරුන්ද?", a: "සමන්තා ජොයි වෙස්ටින් (ඕස්ට්‍රේලියා)" },
+  { id: 51, q: "2025 වසරේ ඇමරිකානු ග්‍රෑන්ඩ් ස්ලෑම් තරඟාවලියේ පිරිමි ටෙනිස් ක්‍රීඩා අංශයේ ශූරතාවය දිනාගත් Carlos Alcaraz කවර රාජ්‍යයක් නියෝජනය කරයිද?", a: "ස්පාඤ්ඤය" },
+  { id: 52, q: "එක්සත් ජාතීන්ගේ මානව හිමිකම් කොමිසමෙන් මෑතදී ඉවත් වූ රාජ්‍යය කුමක්ද?", a: "ඇමරිකාව" },
+  { id: 53, q: "2025 වසරේ ශ්‍රී ලංකාවේ විශාලතම අපනයන ගමනාන්තය කුමක්ද?", a: "ඇමරිකාව" },
+  { id: 54, q: "මෙරට වැඩිම පළාත් පාලන ආයතන සංඛ්‍යාවක් සතු දිස්ත්‍රික්කය කුමක්ද?", a: "මහනුවර" },
+  { id: 55, q: "2026 වසර වන විට ලොව විශාලතම විදුලි ජනක මූලාශ්‍රය කුමක්ද?", a: "පුනර්ජනනීය බලශක්තිය" },
+  { id: 56, q: "2025 වසරේ නොබෙල් සාම ත්‍යාගය දිනාගත් Maria Corina Machado කවර රටක දේශපාලන ක්‍රියාකාරිනියක්ද?", a: "වෙනිසියුලාව" },
+  { id: 57, q: "වර්තමානයේ ශ්‍රී ලංකාවේ පරිගණක සාක්ෂරතාව කොපමණද?", a: "36.4%" },
+  { id: 58, q: "ශ්‍රී ලංකා රජය ණය ගෙවීම පැහැර හැරියේ කිනම් වසරකදීද?", a: "2022" },
+  { id: 59, q: "2024 සැප්තැම්බර් මස ශ්‍රී ලංකාව සිය ස්වෛරීත්වය බැඳුම්කර හිමියන් සමඟ සාර්ථක සාකච්ඡා පැවැත්වූයේ කුමන රාජ්‍යයක් නොවේද?", a: "ඇමරිකාව" },
+  { id: 60, q: "2025 වර්ෂය අවසන් භාගයේ ඇති වූ ගංවතුරින් යට වූ නිවාස පිරිසිදු කර ගැනීම සඳහා රජය ලබා දුන් මුදල කීයද?", a: "රු.25,000" },
+  { id: 61, q: "වර්තමානයේ තායිලන්තය හා කාම්බෝජය අතර දරුණු යුද ගැටුම් හටගෙන තිබේ. ඊට හේතුව වූ ප්‍රබලතම කරුණ කුමක්ද?", a: "දේශසීමා අරගල" },
+  { id: 62, q: "වර්තමානය වන විට ලෝකයේ විශාලතම බොරතෙල් නිෂ්පාදකයා කවුද?", a: "ඇමරිකාව" },
+  { id: 63, q: "ඇමරිකාවේ පවත්වානු ලබන Emmy සම්මාන උළෙලේදී Emmy සම්මානය දිනාගත් ලාභාලතමයා 2025 වසරේ එම සම්මානයට පාත්‍ර විය. ඔහු කවුද?", a: "ඔමාන් කුපර්" },
+  { id: 64, q: "ලොව වැඩිම ජනගහනයක් සහිත රාජ්‍යය කුමක්ද?", a: "ඉන්දියාව" },
+  { id: 65, q: "ඩොලර් මිලියන 500ක ධනයක් හිමිකරගත් ලොව ප්‍රථමයා බවට පත් ධනකුවේරයා කවුද?", a: "ඉලොන් මස්ක්" },
+  { id: 66, q: "1995 වසරේ ශ්‍රී ලංකාවේ මහජන සෞඛ්‍යයට තර්ජනයක් නොවන අයුරින් ලාදුරු රෝගය තුරන් කර දැමුවද, ශ්‍රී ලංකාව ලාදුරු වලින් තොර රටක් බවට පත් කිරීමට සැලසුම් කර ඇත්තේ කිනම් වසරේදීද?", a: "2035" },
+  { id: 67, q: "2025 වසරේදී කෘතිම හදවතක් බද්ධ කළ ලොව පළමු මිනිසා කවර රටකින් බිහි වූයේද?", a: "ඕස්ට්‍රේලියාව" },
+  { id: 68, q: "මෙරට පාවෙන පළමු සූර්ය බලාගාරය ඉදිවී ඇති ජලාශය වන්නේ මෙයින් කවර ජලාශයක්ද?", a: "කිරිඉබ්බන්වැව" },
+  { id: 69, q: "ඩොනල්ඩ් ට්‍රම්ප් විසින් ශ්‍රී ලංකාවට පනවන ලද 44%ක තීරු බද්ද පසුව පහත හෙලන ලදී. ඒ අනුව වර්තමානයේ පනවා ඇති තීරු බද්ද කොපමණද?", a: "20%" },
+  { id: 70, q: "ජාතික සයිබර් ආරක්ෂණ මෙහෙයුම් මධ්‍යස්ථානය 2025 වසරේ විවෘත කෙරුණි. එය කවර ස්ථානයකදීද?", a: "කොළඹ බණ්ඩාරනායක ජාත්‍යන්තර සම්මන්ත්‍රණ ශාලා පරිශ්‍රය" },
+  { id: 71, q: "ඩෙම්පර් රේඩාර් පද්ධතියේ ඉදිකිරීම් 2017 ආරම්භ කළද එය අවසන් කිරීමට නොහැකි විය. ඒ අනුව 2027 වැඩ අවසන් කිරීමට නියමිත මෙම නගරයක් තෝරාගෙන ස්ථාපිත කොට ඇත?", a: "පුත්තලම" },
+  { id: 72, q: "2028 ගිම්හාන ඔලිම්පික් තරඟාවලිය කවර නගරයක් කේන්ද්‍ර කර ගනිමින් පවත්වානු ලබන්නේද?", a: "ලොස් ඇන්ජලීස්" },
+  { id: 73, q: "දකුණු ආසියාවේ වැඩිම වයස්ගත වැඩිහිටි ජනගහනය සිටින රට කුමක්ද?", a: "ශ්‍රී ලංකාව" },
+  { id: 74, q: "රාජ්‍ය ව්‍යවසායන් කාර්යක්ෂම කිරීම සඳහා රජය විසින් “රාජ්‍ය වාණිජ ව්‍යාපාර කළමනාකරණ පනත” හඳුන්වා දීමට අපේක්ෂා කරනුයේ කවර වසරකදීද?", a: "2026" },
+  { id: 75, q: "ක්ලීන් ශ්‍රී ලංකා වැඩසටහන කිනම් වසරකදී ආරම්භ කරන ලදීද?", a: "2025" },
+  { id: 76, q: "වර්තමාන රජය විසින් ආරම්භ කරන ලද සමාජ සවිබල ගැන්වීම හා ආර්ථික ප්‍රතිලාභ සමාජය තුළ සාධාරණව සහතික කිරීම සඳහා ආරම්භ කළ වැඩසටහන කුමක්ද?", a: "ප්‍රජා ශක්ති" },
+  { id: 77, q: "ඉතිහාසය නිරූපණය කරන චරිත 36කින් සමන්විත ඉටි පිළි රූ නිර්මාණ ඇතුළත් කෞතුකාගාරය කවර ස්ථානයක ස්ථාපිත කර තිබේද?", a: "දළදා මාලිගාවේ ඇහැලේපොළ වලව්ව" },
+  { id: 78, q: "2024 ජන හා නිවාස සංගණන වාර්තාව අනුව රටේ අඩුම ජනගහනයක් සහිත දිස්ත්‍රික්කය කුමක්ද?", a: "මුලතිව්" },
+  { id: 79, q: "ශ්‍රී ලංකාවේ ප්‍රධානතම අපනයන භාණ්ඩය කුමක්ද?", a: "ඇඟලුම් හා රෙදිපිළි" },
+  { id: 80, q: "යාපනය ජාත්‍යන්තර ක්‍රීඩාංගණය කවර දූපතක ඉදිවන්නේද?", a: "මණ්ඩතිව්" },
+  { id: 81, q: "2025 වසරේදී දූෂණ චෝදනාවන්ට පළිගැනීමක් ලෙස ජනාධිපති ධුරයෙන් ඉල්ලා අස් වූ නේපාල ජනාධිපතිවරයා කවුද?", a: "රාම් චන්ද්‍ර" },
+  { id: 82, q: "පිළිකා රෝගය සඳහා වැඩි දියුණු කළ එන්නතක් හඳුන්වා දුන් රට කුමක්ද?", a: "රුසියාව" },
+  { id: 83, q: "මහනුවර ජාතික රෝහලේ පිළිකා රෝගී ප්‍රතිකාර මධ්‍යස්ථානයේ කාන්තා පිළිකා රෝගී ප්‍රතිකාර වාට්ටුව හඳුන්වන නම කුමක්ද?", a: "සෙත් පියස" },
+  { id: 84, q: "\"රටම එකට\" ජාතික මෙහෙයුමට සමගාමීව දවස් විසිහතර පැය පුරා ක්‍රියාත්මක ශණික දුරකථන අංකය කුමක්ද?", a: "1818 - මත්ද්‍රව්‍ය මුලින් උපුටා දැමීම" },
+  { id: 85, q: "2025 වසරේ පුරාවිද්‍යා වස්තු සොරකමට ලක් වූ පුරාවිද්‍යා කෞතුකාගාරය කුමක්ද?", a: "ලුවර් කෞතුකාගාරය" },
+  { id: 86, q: "2024 ජන හා නිවාස සංගණනය අනුව ශ්‍රී ලංකාවේ ජන ඝනත්වය කොපමණද?", a: "349" },
+  { id: 87, q: "\"ඩිට්වා\" සුළි කුණාටුවට පත් වූවන්ට ආධාර ගෙන ඇමරිකානු ගුවන් යානා දෙකක් ශ්‍රී ලංකාවට පැමිණියේය. එම ගුවන් යානා හඳුන්වන නම කුමක්ද?", a: "C-130 හර්කියුලිස්" },
+  { id: 88, q: "ආසියානු සංවර්ධන බැංකුවේ වර්තමාන (2025) සභාපතිවරයා කවුද?", a: "මසටෝ කන්ද" },
+  { id: 89, q: "වර්තමාන ගෝලීය බොරතෙල් ප්‍රජාවේ නායකයා කවුද?", a: "සුද්ධෝත්තම සේද මුද්දල්" },
+  { id: 90, q: "2025 ලෝක බුද්ධිමය දේපළ ගෝලීය සම්මාන උළෙලේදී \"පරිසර\" කණ්ඩායම යටතේ ප්‍රථම ස්ථානය දිනාගත් ශ්‍රී ලාංකික පර්යේෂකයා කවුද?", a: "ආචාර්ය නදීෂා චන්ද්‍රසේන" },
+  { id: 91, q: "ලෝක බැංකුව විසින් 2026 වසරේ ජූනි මස දක්වා කාලය සඳහා වන ආදායම් මට්ටම අනුව ශ්‍රී ලංකාව කවර මට්ටමේ ආදායම් ලබන රටක් ලෙස නම් කර ඇතද?", a: "පහළ මධ්‍යම ආදායම්" },
+  { id: 92, q: "2025 දකුණු ආසියානු මලල ක්‍රීඩා උළෙලේ මීටර් 100 ධාවන තරඟයේ රන් පදක්කම ලැබූ දකුණු ආසියාවේ වේගවත්ම මිනිසා වූයේ කවුද?", a: "චමෝද් යෝධසිංහ" },
+  { id: 93, q: "වර්තමාන (2025) ඉන්දියානු මුදල් ඇමතිවරිය කවුද?", a: "නිර්මලා සීතාරාමන්" },
+  { id: 94, q: "ලෝක බලවතුන්ට අභියෝගයක් වෙමින් ඉන්දියාව විසින් නිර්මාණය කරන ලද විශාලතම යුද නෞකාව කුමක්ද?", a: "INS Vikrant" },
+  { id: 95, q: "ශ්‍රී ලංකාව තුළ ආපදාවක් ඇතිවන මොහොතක එම ආපදාව කළමනාකරණයට අවශ්‍ය නීති රීති ඇතුළත් පනත කුමක්ද?", a: "2005 සම්මත කරන ලද ශ්‍රී ලංකා ආපදා කළමනාකරණ පනත" },
+  { id: 96, q: "බුදු දහමට නිගරු කරනවා යැයි චෝදනා එල්ල වූ කේ.කේ. ශ්‍රීනාත් විසින් 2024 වසරේ රචනා කරන ලද කෘතිය කුමක්ද?", a: "බුදුන්ගේ රස්තියාදුව" },
+  { id: 97, q: "2025 වසරේ ඇති වූ අරගල පදනම්ව පාර්ලිමේන්තුව ගිනිබත් කරන ලද ආසියාතික රට කුමක්ද?", a: "නේපාලය" },
+  { id: 98, q: "වර්තමානයේ කංසා වගාව වාණිජ වගාවක් ලෙස සිදු කෙරෙන රටවල් දෙකක් නම් කරන්න.", a: "ඉන්දියාව, ඇෆ්ගනිස්ථානය, දකුණු අප්‍රිකාව, ජැමෙයිකාව, නෙදර්ලන්තය, ඕස්ට්‍රේලියාව" },
+  { id: 99, q: "නිවාස, ආගමික ස්ථාන, සංචාරක හෝටල්, ව්‍යාපාරික ස්ථාන, කාර්යාල, කර්මාන්තශාලා ආදියෙහි සූර්ය පැනල ස්ථාපිත කිරීමෙන් සූර්ය විදුලි උත්පාදනය සඳහා විදුලිබල මණ්ඩලය විසින් ක්‍රියාත්මක ව්‍යාපෘතිය කුමක්ද?", a: "සූර්ය බල සංග්‍රාමය" },
+  { id: 100, q: "රුසියාව විසින් සිවිල් පුරවැසියෙකුට පිරිනමන ඉහළම ගෞරව නාමය වන \"මිත්‍රත්වය සඳහා වූ රුසියානු රාජ්‍ය සම්මානය\" දිනාගත් ලාංකිකයා කවුද?", a: "හිටපු රුසියානු තානාපති වෛද්‍ය සමන් වීරසිංහ" }
+
+        ];
+
+        function renderCards(items) {
+            const listContainer = document.getElementById('qaList');
+            listContainer.innerHTML = '';
+
+            items.forEach(item => {
+                const numFormatted = String(item.id).padStart(2, '0');
+                const cardHtml = `
+                    <div class="q-card">
+                        <div class="q-header">
+                            <span class="q-badge">ප්‍රශ්නය ${numFormatted}</span>
+                            <div class="q-text">${item.q}</div>
+                        </div>
+                        <div class="a-box">
+                            <span class="a-badge">පිළිතුර</span>
+                            <div class="a-text">${item.a}</div>
+                        </div>
+                    </div>
+                `;
+                listContainer.innerHTML += cardHtml;
+            });
+        }
+
+        function filterQA() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const filtered = qaData.filter(item => 
+                item.q.toLowerCase().includes(query) || 
+                item.a.toLowerCase().includes(query) ||
+                String(item.id).includes(query)
+            );
+            renderCards(filtered);
+            document.getElementById('qCountBadge').innerText = `ප්‍රශ්න සංඛ්‍යාව: ${filtered.length}`;
+        }
+
+        // Initial render
+        renderCards(qaData);
+    </script>
+</body>
+</html>
